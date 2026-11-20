@@ -1,0 +1,530 @@
+/* The project archive and case studies use the shared portfolio shell. */
+:is(.archive-ledger, .case-study) :is(.project-intro, .archive-tools, .archive-main, .project-section, .project-evidence, .project-end) {
+  width: min(calc(100% - clamp(32px, 8vw, 112px)), var(--portfolio-width));
+}
+
+.project-intro {
+  padding-block: clamp(2.5rem, 6vw, 5rem) 2.75rem;
+}
+
+.project-intro h1 {
+  max-width: 18ch;
+  margin: 0 0 1rem;
+  color: var(--portfolio-text);
+  font-size: clamp(2.3rem, 5.6vw, 4.65rem);
+  font-weight: 600;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.project-lede {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--portfolio-muted);
+  font-size: clamp(1rem, 1.55vw, 1.24rem);
+  line-height: 1.6;
+}
+
+.project-back,
+.project-link {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  max-width: 100%;
+  min-height: 2rem;
+  color: var(--portfolio-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+}
+
+.project-back {
+  flex-direction: row-reverse;
+  margin-bottom: 1.25rem;
+  color: var(--portfolio-muted);
+  font-size: .88rem;
+}
+
+.project-back:hover,
+.project-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .9rem;
+  row-gap: .35rem;
+  margin: 1.25rem 0 0;
+  color: var(--portfolio-muted);
+  font: .79rem/1.45 ui-monospace, monospace;
+}
+
+.project-meta span + span {
+  border-inline-start: 1px solid var(--portfolio-line);
+  padding-inline-start: .9rem;
+}
+
+.project-intro .project-link {
+  margin-top: 1.1rem;
+}
+
+.project-section,
+.project-evidence,
+.project-end {
+  padding-block: clamp(1.65rem, 4vw, 3.2rem);
+  border-top: 1px solid var(--portfolio-line);
+  scroll-margin-top: 1rem;
+}
+
+.project-section,
+.project-evidence {
+  display: grid;
+  grid-template-columns: minmax(0, .53fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.25rem, 5vw, 4rem);
+}
+
+.project-section h2,
+.project-evidence h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.7vw, 1.85rem);
+  font-weight: 620;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.project-evidence p,
+.project-section p {
+  max-width: 65ch;
+  margin: 0 0 .85rem;
+  color: var(--portfolio-muted);
+}
+
+.project-evidence p:first-of-type {
+  margin-top: .8rem;
+}
+
+.project-section p:last-child,
+.project-evidence p:last-child {
+  margin-bottom: 0;
+}
+
+.project-evidence img,
+.project-section img,
+.archive-exhibit img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.project-evidence .project-pixel-art {
+  width: min(100%, 27rem);
+  image-rendering: pixelated;
+}
+
+.project-evidence video,
+.archive-exhibit video {
+  display: block;
+  width: min(100%, 17rem);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  background: #080a09;
+}
+
+#video-sample {
+  scroll-margin-top: 1rem;
+}
+
+.project-milestones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 0;
+}
+
+.project-end,
+.archive-panel-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+}
+
+.case-study .source-evidence {
+  margin: 1rem 0 0;
+}
+
+.case-study .source-evidence figcaption {
+  margin-bottom: .5rem;
+  color: var(--portfolio-muted);
+  font-size: .84rem;
+}
+
+.case-study .source-evidence pre {
+  margin: 0;
+  padding: 1rem;
+  overflow: auto;
+  font: .82rem/1.6 var(--portfolio-mono);
+  border: 1px solid var(--portfolio-line);
+  border-radius: 0;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-text);
+}
+
+.archive-ledger .project-intro {
+  padding-bottom: 1.9rem;
+}
+
+.archive-ledger .archive-tools {
+  padding-block: 0 1rem;
+}
+
+.archive-ledger :is(.archive-tools, .archive-records, .archive-record, .archive-group, .archive-game-frame, .archive-game-launch)[hidden] {
+  display: none;
+}
+
+
+.archive-query {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem 1rem;
+  margin-bottom: .9rem;
+}
+
+.archive-query input {
+  width: min(100%, 27rem);
+  min-height: 2.75rem;
+  padding: .5rem .75rem;
+  border: 1px solid var(--portfolio-line);
+  border-radius: 0;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-text);
+  font: inherit;
+}
+
+.archive-query input::placeholder {
+  color: var(--portfolio-muted);
+  opacity: 1;
+}
+
+.archive-ledger .archive-filter-feedback {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--portfolio-muted);
+  font-size: .84rem;
+}
+
+.archive-ledger .archive-filters,
+.archive-ledger .archive-view-switch,
+.archive-ledger .archive-bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.archive-ledger .archive-workspace-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem 1rem;
+  margin: .45rem 0 0;
+}
+
+.archive-ledger :is(.archive-filters, .archive-view-switch, .archive-bulk-actions) button {
+  min-height: 2.5rem;
+  padding: .35rem .52rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--portfolio-muted);
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.archive-ledger :is(.archive-filters, .archive-view-switch) button[aria-pressed="true"] {
+  border-bottom-color: var(--portfolio-accent);
+  background: transparent;
+  color: var(--portfolio-text);
+}
+
+.archive-ledger :is(.archive-filters, .archive-view-switch, .archive-bulk-actions) button:hover {
+  background: var(--portfolio-surface);
+  color: var(--portfolio-text);
+}
+
+.archive-ledger .archive-main {
+  padding-block: 0 clamp(2.75rem, 6vw, 5rem);
+}
+
+.archive-ledger .archive-group {
+  margin: 0 0 1.65rem;
+  scroll-margin-top: 1rem;
+}
+
+.archive-ledger .archive-group-label {
+  margin: 0 0 .5rem;
+  color: var(--portfolio-muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.archive-ledger .archive-records {
+  margin: 0;
+  border-top: 1px solid var(--portfolio-line);
+}
+
+.archive-ledger .archive-record {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--portfolio-line);
+  scroll-margin-top: 1rem;
+}
+
+.archive-ledger .archive-record summary {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 11.5rem 1.25rem;
+  gap: .75rem;
+  align-items: center;
+  min-height: 4.6rem;
+  padding: .8rem .4rem;
+  list-style: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.archive-ledger .archive-record summary::-webkit-details-marker {
+  display: none;
+}
+
+.archive-ledger .archive-record summary::marker {
+  content: '';
+}
+
+.archive-ledger .archive-record-heading {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.archive-ledger .archive-record summary:hover,
+.archive-ledger .archive-record[open] > summary {
+  background: var(--portfolio-surface);
+}
+
+.archive-ledger .archive-record summary:focus-visible {
+  outline: 2px solid var(--portfolio-accent);
+  outline-offset: -2px;
+}
+
+.archive-ledger .archive-record-title {
+  color: var(--portfolio-text);
+  font-size: 1.05rem;
+  font-weight: 620;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.archive-ledger :is(.archive-record-year, .archive-record-stack, .archive-record-status) {
+  color: var(--portfolio-muted);
+  font: .78rem/1.35 var(--portfolio-mono);
+  overflow-wrap: anywhere;
+}
+
+.archive-ledger .archive-record-chevron {
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--portfolio-accent);
+}
+
+.archive-ledger .archive-record-chevron svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.archive-ledger .archive-record[open] .archive-record-chevron {
+  transform: rotate(180deg);
+  background: transparent;
+}
+
+.archive-ledger .archive-record-panel {
+  padding: .85rem .45rem 1.4rem 6.65rem;
+}
+
+.archive-ledger .archive-record-description {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--portfolio-muted);
+  font-size: .95rem;
+}
+
+.archive-ledger .archive-panel-links {
+  margin-top: .65rem;
+}
+
+.archive-exhibit {
+  margin-top: 1rem;
+}
+
+.archive-exhibit .project-milestones {
+  width: min(100%, 24rem);
+}
+
+.archive-ledger .archive-game-launch {
+  min-height: 2.5rem;
+  margin: 0;
+  padding: .5rem .8rem;
+  border: 1px solid var(--portfolio-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--portfolio-accent);
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.archive-ledger .archive-game-launch:hover {
+  background: var(--portfolio-surface);
+}
+
+.archive-ledger .archive-game-frame {
+  margin-top: 1rem;
+}
+
+.archive-ledger .archive-game-frame iframe {
+  display: block;
+  width: 100%;
+  height: min(40rem, 72svh);
+  border: 1px solid var(--portfolio-line);
+  background: var(--portfolio-surface);
+}
+
+.archive-ledger [data-game-toggle][aria-expanded="false"] [data-game-label="hide"],
+.archive-ledger [data-game-toggle][aria-expanded="true"] [data-game-label="load"] {
+  display: none;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-records:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: .75rem;
+  padding-top: .75rem;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record {
+  border: 1px solid var(--portfolio-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record summary {
+  grid-template-columns: minmax(0, 1fr) 1.25rem;
+  gap: .45rem;
+  min-height: 7rem;
+  padding: .85rem;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record-year {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record-heading {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record-status {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record-chevron {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.archive-ledger .archive-main.is-card-view .archive-record-panel {
+  padding: .85rem;
+}
+
+@supports selector(details::details-content) {
+  .archive-ledger .archive-record::details-content {
+    transition: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .project-section,
+  .project-evidence {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .85rem;
+  }
+
+  .archive-ledger .archive-record summary {
+    grid-template-columns: 3.7rem minmax(0, 1fr) 1.25rem;
+    gap: .25rem .65rem;
+  }
+
+  .archive-ledger .archive-record-year {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .archive-ledger .archive-record-heading {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .archive-ledger .archive-record-chevron {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .archive-ledger .archive-record-status {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .archive-ledger .archive-record-panel {
+    padding-inline: .4rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .project-meta {
+    flex-direction: column;
+  }
+
+  .project-meta span + span {
+    padding: 0;
+    border: 0;
+  }
+
+  .archive-ledger .archive-main.is-card-view .archive-records:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

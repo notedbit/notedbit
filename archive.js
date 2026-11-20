@@ -1,169 +1,175 @@
-// In-page project archive: category controls, searchable accessible details and lazy demos.
-(() => {
-  'use strict';
-  document.addEventListener('DOMContentLoaded', () => {
-    const search = document.getElementById('project-search');
-    const records = Array.from(document.querySelectorAll('.archive-record'));
-    const groups = Array.from(document.querySelectorAll('.archive-group'));
-    const filters = Array.from(document.querySelectorAll('[data-filter]'));
-    const feedback = document.querySelector('[data-result-count]');
-    if (!search || !records.length) return;
-    let category = 'all';
-    const archiveMain = document.getElementById('project-groups');
-    const views = Array.from(document.querySelectorAll('[data-archive-view]'));
-    const bulkButtons = Array.from(document.querySelectorAll('[data-archive-expand]'));
-    // Preserve each item's original category container so category tabs can restore it.
-    const originalParents = new Map(records.map(record => [record, record.parentElement]));
-    const chronologicalRecords = [...records].sort((a, b) =>
-      Number(b.dataset.sortYear || 0) - Number(a.dataset.sortYear || 0));
-    const chronologicalSection = document.createElement('section');
-    chronologicalSection.className = 'archive-all-section';
-    const chronologicalList = document.createElement('div');
-    chronologicalList.className = 'archive-records archive-all-records';
-    chronologicalSection.append(chronologicalList);
-    if (archiveMain) archiveMain.insertBefore(chronologicalSection, archiveMain.firstChild);
-    let placement = null;
-    function placeRecords() {
-      const newPlacement = category === 'all' ? 'all' : 'categories';
-      if (placement === newPlacement) return;
-      if (newPlacement === 'all') {
-        chronologicalRecords.forEach(record => chronologicalList.appendChild(record));
-      } else {
-        records.forEach(record => originalParents.get(record).appendChild(record));
-      }
-      chronologicalSection.hidden = newPlacement !== 'all';
-      placement = newPlacement;
+'use strict';
+
+const archive = document.getElementById('project-groups');
+const archiveTools = document.querySelector('[data-archive-tools]');
+const search = document.getElementById('project-search');
+const filters = [...archiveTools.querySelectorAll('[data-filter]')];
+const views = [...archiveTools.querySelectorAll('[data-archive-view]')];
+const feedback = archiveTools.querySelector('[data-result-count]');
+const groups = [...archive.querySelectorAll('.archive-group')];
+const records = [...archive.querySelectorAll('.archive-record')];
+const flatList = document.createElement('div');
+flatList.className = 'archive-records archive-all-records';
+archive.prepend(flatList);
+
+let category = 'all';
+let currentPlacement;
+
+function normalize(text) {
+  return text.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replaceAll('ß', 'ss');
+}
+
+const recordData = records.map(record => ({
+  record,
+  parent: record.parentElement,
+  searchText: normalize([
+    record.id,
+    record.querySelector('summary').textContent,
+    ...[...record.querySelectorAll('summary [data-de], .archive-record-description')]
+      .flatMap(node => [node.textContent, node.dataset.de])
+  ].join(' '))
+}));
+const chronological = [...records].sort((first, second) =>
+  Number(second.dataset.sortYear) - Number(first.dataset.sortYear));
+
+function currentHash() {
+  try {
+    return decodeURIComponent(location.hash.slice(1));
+  } catch {
+    return '';
+  }
+}
+
+function setProjectHash(id = '') {
+  const url = new URL(location.href);
+  url.hash = id;
+  history.replaceState(history.state, '', url);
+}
+
+function updateArchive() {
+  const all = category === 'all';
+  if (all !== currentPlacement) {
+    if (all) flatList.append(...chronological);
+    else recordData.forEach(({record, parent}) => parent.append(record));
+    currentPlacement = all;
+  }
+  flatList.hidden = !all;
+
+  const query = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+  const linkedProject = currentHash();
+  let count = 0;
+  for (const {record, searchText} of recordData) {
+    const matchingCategory = all || record.dataset.category === category;
+    const visible = matchingCategory && query.every(term => searchText.includes(term));
+    record.hidden = !visible;
+    if (visible) count++;
+    else {
+      record.open = false;
+      if (record.id === linkedProject) setProjectHash();
     }
+  }
+  for (const group of groups) {
+    group.hidden = all || !group.querySelector('.archive-record:not([hidden])');
+  }
+  for (const filter of filters) {
+    filter.setAttribute('aria-pressed', String(filter.dataset.filter === category));
+  }
 
-    function update() {
-      placeRecords();
-      const q = search.value.trim().toLocaleLowerCase();
-      let shown = 0;
-      for (const record of records) {
-        const searchable = (record.dataset.search || '').toLocaleLowerCase();
-        const visible = (category === 'all' || record.dataset.category === category) && (!q || searchable.includes(q));
-        record.hidden = !visible;
-        if (!visible && record.open) record.open = false;
-        if (visible) shown++;
-      }
-      for (const group of groups) {
-        group.hidden = category === 'all' || !group.querySelector('.archive-record:not([hidden])');
-      }
-      if (archiveMain) archiveMain.classList.toggle('is-all-view', category === 'all');
-      for (const button of filters) {
-        button.setAttribute('aria-pressed', String(button.dataset.filter === category));
-      }
-      const de = document.documentElement.lang === 'de';
-      if (feedback) feedback.textContent = de
-        ? (shown === 1 ? '1 Projekt angezeigt' : `${shown} Projekte angezeigt`)
-        : (shown === 1 ? '1 project shown' : `${shown} projects shown`);
-    }
+  const german = document.documentElement.lang === 'de';
+  const next = german
+    ? (count === 0 ? 'Keine Projekte gefunden.' : `${count} ${count === 1 ? 'Projekt' : 'Projekte'}`)
+    : (count === 0 ? 'No projects found.' : `${count} ${count === 1 ? 'project' : 'projects'}`);
+  if (feedback.textContent !== next) feedback.textContent = next;
+}
 
-    function selectCategory(value) {
-      if (!filters.some(b => b.dataset.filter === value)) return;
-      category = value;
-      update();
-    }
-
-    filters.forEach((button, i) => {
-      button.addEventListener('click', () => selectCategory(button.dataset.filter));
-      // Segmented control supports arrow, Home and End for keyboard users.
-      button.addEventListener('keydown', event => {
-        let next = i;
-        if (event.key === 'ArrowRight') next = (i + 1) % filters.length;
-        else if (event.key === 'ArrowLeft') next = (i - 1 + filters.length) % filters.length;
-        else if (event.key === 'Home') next = 0;
-        else if (event.key === 'End') next = filters.length - 1;
-        else return;
-        event.preventDefault();
-        filters[next].focus();
-        selectCategory(filters[next].dataset.filter);
-      });
-    });
-    views.forEach(button => {
-      button.addEventListener('click', () => {
-        const cardMode = button.dataset.archiveView === 'cards';
-        if (archiveMain) archiveMain.classList.toggle('is-card-view', cardMode);
-        views.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
-      });
-    });
-    let bulkExpanding = false;
-    bulkButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const opening = button.dataset.archiveExpand === 'all';
-        bulkExpanding = opening;
-        records.forEach(record => {
-          if (!opening || !record.hidden) record.open = opening;
-        });
-        window.setTimeout(() => { bulkExpanding = false; }, 0);
-      });
-    });
-    search.addEventListener('input', update);
-    document.addEventListener('notedbit:languagechange', update);
-
-    records.forEach(record => {
-      record.addEventListener('toggle', () => {
-        if (!record.open) {
-          const video = record.querySelector('video');
-          if (video) video.pause();
-          // Stop a loaded game when its project closes or its category is hidden.
-          const game = record.querySelector('.archive-game');
-          const frame = game?.querySelector('.archive-game-frame');
-          const iframe = frame?.querySelector('iframe');
-          const button = game?.querySelector('[data-game-toggle]');
-          if (frame) frame.hidden = true;
-          if (iframe) iframe.removeAttribute('src');
-          if (button) button.setAttribute('aria-expanded', 'false');
-          return;
-        }
-        // One expanded project at a time, even where details[name] is unsupported.
-        if (!bulkExpanding) records.forEach(other => {
-          if (other !== record && other.open) other.open = false;
-        });
-        // A shareable link without navigating away.
-        if (window.history && window.history.replaceState) {
-          window.history.replaceState(null, '', '#' + encodeURIComponent(record.id));
-        }
-      });
-    });
-
-    // Embed the already-published browser game only when requested.
-    document.querySelectorAll('[data-game-toggle]').forEach(button => {
-      button.addEventListener('click', () => {
-        const container = button.closest('.archive-game');
-        const frame = container?.querySelector('.archive-game-frame');
-        const iframe = frame?.querySelector('iframe[data-game-src]');
-        if (!frame || !iframe) return;
-        const opening = frame.hidden;
-        frame.hidden = !opening;
-        button.setAttribute('aria-expanded', String(opening));
-        if (opening && !iframe.hasAttribute('src')) iframe.src = iframe.dataset.gameSrc;
-        if (!opening && iframe.contentWindow) {
-          // Remove the iframe source so a running game does not keep consuming CPU.
-          iframe.removeAttribute('src');
-        }
-      });
-    });
-
-    // The homepage can link directly to a specific expanded project (#video etc.).
-    function openHash() {
-      let hash;
-      try {
-        hash = decodeURIComponent(window.location.hash.slice(1));
-      } catch {
-        return;
-      }
-      const target = records.find(r => r.id === hash);
-      if (!target) return;
-      category = target.dataset.category;
-      search.value = '';
-      update();
-      target.open = true;
-      window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start', behavior: 'instant' }));
-    }
-
-    update();
-    openHash();
-    window.addEventListener('hashchange', openHash);
+filters.forEach((filter, index) => {
+  filter.addEventListener('click', () => {
+    category = filter.dataset.filter;
+    updateArchive();
   });
-})();
+  filter.addEventListener('keydown', event => {
+    let next;
+    switch (event.key) {
+      case 'ArrowRight': next = (index + 1) % filters.length; break;
+      case 'ArrowLeft': next = (index - 1 + filters.length) % filters.length; break;
+      case 'Home': next = 0; break;
+      case 'End': next = filters.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    filters[next].focus();
+    filters[next].click();
+  });
+});
+
+for (const view of views) {
+  view.addEventListener('click', () => {
+    archive.classList.toggle('is-card-view', view.dataset.archiveView === 'cards');
+    views.forEach(button => button.setAttribute('aria-pressed', String(button === view)));
+  });
+}
+
+for (const button of archiveTools.querySelectorAll('[data-archive-expand]')) {
+  button.addEventListener('click', () => {
+    const expanding = button.dataset.archiveExpand === 'all';
+    records.forEach(record => { record.open = expanding && !record.hidden; });
+    if (!expanding && records.some(record => record.id === currentHash())) setProjectHash();
+  });
+}
+
+for (const record of records) {
+  record.querySelector('summary').addEventListener('click', () => {
+    // The native disclosure toggles after this click. Bulk actions set open directly.
+    if (record.open) {
+      if (currentHash() === record.id) setProjectHash();
+      return;
+    }
+    records.forEach(other => {
+      if (other !== record) other.open = false;
+    });
+    setProjectHash(record.id);
+  });
+  record.addEventListener('toggle', () => {
+    if (!record.open) record.querySelector('video')?.pause();
+  });
+}
+
+for (const button of archive.querySelectorAll('[data-game-toggle]')) {
+  const container = document.getElementById(button.getAttribute('aria-controls'));
+  const game = container.querySelector('iframe');
+
+  function setGameOpen(open) {
+    container.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    if (open) game.src = game.dataset.gameSrc;
+    else game.removeAttribute('src');
+  }
+
+  button.hidden = false;
+  button.addEventListener('click', () => setGameOpen(container.hidden));
+  const record = button.closest('.archive-record');
+  record.addEventListener('toggle', () => {
+    if (!record.open && !container.hidden) setGameOpen(false);
+  });
+}
+
+function openHash() {
+  const id = currentHash();
+  const project = records.find(record => record.id === id);
+  const group = groups.find(section => section.id === id);
+  if (!project && !group) return;
+  category = project?.dataset.category ?? group.id;
+  search.value = '';
+  updateArchive();
+  if (project) records.forEach(record => { record.open = record === project; });
+  requestAnimationFrame(() => (project || group).scrollIntoView({block: 'start', behavior: 'instant'}));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateArchive();
+  openHash();
+  archiveTools.hidden = false;
+}, {once: true});
+search.addEventListener('input', updateArchive);
+document.addEventListener('notedbit:languagechange', updateArchive);
+window.addEventListener('hashchange', openHash);

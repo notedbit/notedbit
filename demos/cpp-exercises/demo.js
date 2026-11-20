@@ -2,8 +2,10 @@
    The original C++ code was not replaced or retroactively attributed to one author. */
 (() => {
   'use strict';
-  const de = () => document.documentElement.lang === 'de';
-  const messages = (en, german) => de() ? german : en;
+  function setMessage(element, english, german) {
+    element.dataset.de = german;
+    element.textContent = english;
+  }
   const values = new Map(Object.entries({
     'null': 0, 'ein':1, 'eins':1, 'zwei':2, 'drei':3,
     'vier':4, 'fuenf':5, 'fünf':5, 'sechs':6,
@@ -66,21 +68,26 @@
     });
   });
   const calcForm=document.getElementById('calc-form'),out=document.getElementById('calc-output'),history=document.getElementById('calc-history');
-  const friendly = err => ({
-    words:messages('Enter exactly three words.','Gib genau drei Wörter ein.'),
-    number:messages('Use German number words from null to zehn.','Verwende deutsche Zahlwörter von null bis zehn.'),
-    operation:messages('Use plus, minus, mal, geteilt-durch or dividiert-durch.','Nutze plus, minus, mal, geteilt-durch oder dividiert-durch.'),
-    zero:messages('Division by zero is not allowed.','Division durch null ist nicht erlaubt.')
-  })[err.message]||messages('Invalid expression.','Ungültiger Ausdruck.');
+  const calculationErrors = new Map([
+    ['words', ['Enter exactly three words.', 'Gib genau drei Wörter ein.']],
+    ['number', ['Use German number words from null to zehn.', 'Verwende deutsche Zahlwörter von null bis zehn.']],
+    ['operation', ['Use plus, minus, mal, geteilt-durch or dividiert-durch.', 'Nutze plus, minus, mal, geteilt-durch oder dividiert-durch.']],
+    ['zero', ['Division by zero is not allowed.', 'Division durch null ist nicht erlaubt.']]
+  ]);
   calcForm?.addEventListener('submit',ev=>{
     ev.preventDefault();
     const expression=document.getElementById('expression').value.trim();
     try {
       const result=calculate(expression);
-      out.classList.remove('is-error');out.textContent=`${expression} = ${result}`;
+      out.classList.remove('is-error');
+      delete out.dataset.de;
+      out.textContent=`${expression} = ${result}`;
       const li=document.createElement('li');li.textContent=`${expression} = ${result}`;history.prepend(li);
       while(history.children.length>5) history.lastElementChild.remove();
-    } catch(e) {out.classList.add('is-error');out.textContent=friendly(e);}
+    } catch (error) {
+      out.classList.add('is-error');
+      setMessage(out, ...(calculationErrors.get(error.message) || ['Invalid expression.', 'Ungültiger Ausdruck.']));
+    }
   });
   const sortForm=document.getElementById('sort-form'),visual=document.getElementById('sort-visual'),stepsList=document.getElementById('sort-steps');
   function showSort(values) {visual.replaceChildren();for(const val of values){const item=document.createElement('span');item.className='sort-pill';item.textContent=String(val);visual.append(item);}}
@@ -91,13 +98,24 @@
       showSort(data.result);
       for(const step of data.steps){
         const li=document.createElement('li');
-        li.textContent=`${messages('Pass','Durchlauf')} ${step.pass}: ${step.comparison.join(' / ')} — ${step.swap?messages('swap','tauschen'):messages('keep','beibehalten')} → ${step.after.join(', ')}`;
+        const comparison = `${step.pass}: ${step.comparison.join(' / ')}`;
+        const result = step.after.join(', ');
+        setMessage(li,
+          `Pass ${comparison} — ${step.swap ? 'swap' : 'keep'} → ${result}`,
+          `Durchlauf ${comparison} — ${step.swap ? 'tauschen' : 'beibehalten'} → ${result}`);
         stepsList.append(li);
       }
-    } catch(e){visual.replaceChildren();const message=document.createElement('p');message.textContent=messages('Enter exactly three whole numbers separated by commas.','Gib genau drei ganze Zahlen ein, durch Kommas getrennt.');visual.append(message);}
-  });
-  document.addEventListener('notedbit:languagechange',()=>{
-    if(out&&!out.classList.contains('is-error')&&!history.children.length) out.textContent=messages('Enter an expression and select Calculate.','Gib einen Ausdruck ein und drücke Berechnen.');
+    } catch (error) {
+      const message = document.createElement('p');
+      if (error.message === 'range') {
+        setMessage(message, 'Use values between −9,007,199,254,740,991 and 9,007,199,254,740,991.',
+          'Verwende Werte zwischen −9.007.199.254.740.991 und 9.007.199.254.740.991.');
+      } else {
+        setMessage(message, 'Enter exactly three whole numbers separated by commas.',
+          'Gib genau drei ganze Zahlen ein, durch Kommas getrennt.');
+      }
+      visual.replaceChildren(message);
+    }
   });
   showSort([9,2,5]);
 })();

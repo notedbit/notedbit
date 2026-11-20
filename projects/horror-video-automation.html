@@ -1,25 +1,74 @@
 <!DOCTYPE html>
-
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title data-de="Automatisierte Horrorstory- &amp; Videoproduktion — notedbit">Automated Horror Story &amp; Video Production — notedbit</title>
-<meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." name="description"/>
-<meta content="#0b0d10" name="theme-color"/><meta content="website" property="og:type"/>
-<meta content="Automated Horror Story &amp; Video Production — notedbit" data-content-de="Automatisierte Horrorstory- &amp; Videoproduktion — notedbit" property="og:title"/>
-<meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." property="og:description"/>
-<meta content="https://notedbit.com/projects/horror-video-automation.html" property="og:url"/><meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
-<link href="https://notedbit.com/projects/horror-video-automation.html" rel="canonical"/><link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="../style.css" rel="stylesheet"/><script defer="" src="../language.js"></script><script defer="" src="../script.js"></script>
-</head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header" data-header=""><div class="nav-shell shell"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" class="nav-toggle" data-nav-toggle="" type="button"><span></span><span></span></button><nav aria-label="Primary navigation" class="site-nav" id="primary-nav"><a href="../index.html#work"><span data-de="Ausgewählte Projekte">Featured projects</span></a><a href="../projects/"><span data-de="Alle Projekte">All projects</span></a><a href="../index.html#about"><span data-de="Über mich">About</span></a><a href="../index.html#contact"><span data-de="Kontakt">Contact</span></a></nav><div aria-label="Sprache / Language" class="language-switch" data-language-switch="" role="group"><button aria-label="Deutsch wählen" aria-pressed="false" data-lang="de" lang="de" type="button">DE</button><span aria-hidden="true">/</span><button aria-label="Choose English" aria-pressed="true" data-lang="en" lang="en" type="button">EN</button></div></div></header>
-<main id="main-content" tabindex="-1"><section class="case-hero section-shell"><a class="back-link" href="./"><span aria-hidden="true">←</span> <span data-de="Zum Projektarchiv">Back to the archive</span></a>
-<p class="section-kicker" data-de="Eigenständiges Python-Projekt · 2026">Independent Python project · 2026</p>
-<h1 class="case-title" data-de="Automatisierte Horrorstory- &amp; Videoproduktion">Automated Horror Story &amp; Video Production</h1>
-<p class="case-lede" data-de="Lokale Pipeline für fiktionale Horror-Kurzvideos: Qwen3-Storys, Kokoro-Vertonung, Bildgenerierung, Untertitel, FFmpeg-Videoschnitt und automatisierte Qualitätsprüfung.">Local pipeline for fictional horror shorts: Qwen3 story generation, Kokoro narration, visual synthesis, subtitles, FFmpeg video assembly and automated validation.</p>
-<div class="case-tags"><span data-de="Automatisierung">Automation</span><span data-de="Story-Generierung">Story generation</span><span data-de="Audio / Video">Audio / video</span><span data-de="Untertitel">Subtitles</span></div>
-<p class="case-fact-line"><span data-de="2026 · Entwicklungsarbeit">2026 · Development work</span><span data-de="Videobeispiel geprüft · Prototyp mit Einschränkungen">Generated sample verified · Prototype with limitations</span></p>
-</section><section class="case-section section-shell"><div class="case-section-head">
-<h2 data-de="Tatsächliche Pipeline-Komponenten">Real pipeline components</h2>
-</div><div class="case-section-body"><p data-de="Die untersuchten Python-Module implementieren lokale GGUF-Textgenerierung, Kokoro-TTS, faster-whisper-Wort-Timestamps, ASS-Untertitel, Bildgenerierung mit Diffusers, Bildeffekte und FFmpeg-Rendering in H.264/AAC.">The inspected Python modules implement local GGUF story inference, Kokoro TTS, faster-whisper word timing, ASS subtitles, image generation with Diffusers, image motion and FFmpeg H.264/AAC rendering.</p></div></section><section class="case-section section-shell"><div class="case-section-head">
-<h2 data-de="Orchestrierung, GUI und Prüfungen">Orchestration, GUI and verification</h2>
-</div><div class="case-section-body"><p data-de="Die archivierte Implementierung umfasst eine Tkinter-Oberfläche, Einzel- und Mehrteiler-Abläufe, Batchverarbeitung, Qualitätsprüfungen, begrenzte Wiederholungen und Diagnostik. Am 2. November 2026 bestanden 530 Offline-Python-Tests sowie 42 Subtests. Das belegt keine neue vollständige KI-Inferenz und nicht jeden Batch-Render.">The archived implementation includes a Tkinter interface, single and multipart workflows, configurable batches, quality gates, bounded retries and diagnostics. On 2 November 2026, 530 offline Python tests plus 42 subtests passed. Those tests do not establish successful fresh model inference or every batch render.</p></div></section><section class="case-section section-shell"><div class="case-section-head">
-<h2 data-de="Bekannte Grenzen">Known limits</h2>
-</div><div class="case-section-body"><p><span data-de="Das am 24.09.2026 erzeugte Originalvideo ist vorhanden und wurde über mehrere Zeitpunkte visuell geprüft. Der folgende 42-Sekunden-Ausschnitt zeigt eine echte Videoausgabe mit Horrorbildsequenzen und Untertiteln. Der aktuelle Quellcodestand der vollständigen Anwendung konnte noch nicht unabhängig ausgeführt werden; dokumentierte Stapelverarbeitung war in Tests nicht durchgehend erfolgreich.">An original generated output dated 24 September 2026 is available and was visually inspected at multiple time points. This 42-second excerpt shows real horror visuals and subtitles. The complete current application source has not yet been independently executed; documented batch production did not succeed for all requested items.</span></p></div></section><section class="case-section section-shell"><div class="case-section-head"><h2 data-de="Erzeugtes Video — Ausschnitt">Generated video — excerpt</h2></div><div class="case-section-body"><figure class="case-verified-video"><video aria-label="Horror video produced by the project" controls="" playsinline="" poster="../assets/horror-generated-frame.jpg" preload="none"><source src="../assets/horror-generated-excerpt.mp4" type="video/mp4"/></video><figcaption data-de="42 Sekunden aus der 2:53-Minuten-Originalausgabe vom 24.09.2026. Kein Referenzvideo.">42 seconds from the original 2:53 output dated 24 September 2026. Not reference material.</figcaption></figure></div></section><section class="case-end section-shell"><a class="button button-secondary" href="./"><span data-de="Alle Projekte">All projects</span><span aria-hidden="true"> ↗</span></a><a class="button button-secondary" href="../index.html#contact"><span data-de="Kontakt">Contact</span><span aria-hidden="true"> ↗</span></a></section></main><footer class="site-footer portfolio-footer"><div class="footer-shell shell"><div class="footer-identity"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><p>© <span data-year="">2026</span> Loran Mustafa</p></div><div class="footer-meta"><a href="mailto:loran@notedbit.com">Email</a><a href="https://www.linkedin.com/in/loran-mustafa" rel="noopener noreferrer" target="_blank">LinkedIn</a><a href="https://github.com/notedbit" rel="noopener noreferrer" target="_blank">GitHub</a></div></div></footer></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title data-de="Automatisierte Horrorstory- und Videoproduktion — notedbit">Automated Horror Story &amp; Video Production — notedbit</title>
+  <meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." name="description"/>
+  <meta content="#121615" name="theme-color"/>
+  <meta content="website" property="og:type"/>
+  <meta content="Automated Horror Story &amp; Video Production — notedbit" data-content-de="Automatisierte Horrorstory- und Videoproduktion — notedbit" property="og:title">
+  <meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." property="og:description"/>
+  <meta content="https://notedbit.com/projects/horror-video-automation.html" property="og:url"/>
+  <meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
+  <link href="https://notedbit.com/projects/horror-video-automation.html" rel="canonical"/>
+  <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="../style.css" rel="stylesheet"/>
+  <link href="../portfolio.css" rel="stylesheet"/>
+  <link href="projects.css" rel="stylesheet"/>
+  <script defer="" src="../language.js"></script>
+  <script defer="" src="../script.js"></script>
+</head>
+<body class="case-study">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header" data-header="">
+<div class="nav-shell shell"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" class="nav-toggle" data-nav-toggle="" type="button"><span></span><span></span></button>
+<nav aria-label="Primary navigation" class="site-nav" id="primary-nav"><a href="../index.html#work"><span data-de="Projekte">Selected work</span></a><a href="./"><span data-de="Archiv">Archive</span></a><a href="../index.html#about"><span data-de="Profil">About</span></a><a href="../index.html#contact"><span data-de="Kontakt">Contact</span></a>
+</nav>
+<div aria-label="Sprache / Language" class="language-switch" data-language-switch="" role="group"><button aria-label="Deutsch wählen" aria-pressed="false" data-lang="de" lang="de" type="button">DE</button><span aria-hidden="true">/</span><button aria-label="Choose English" aria-pressed="true" data-lang="en" lang="en" type="button">EN</button>
+</div>
+</div></header>
+<main id="main-content" tabindex="-1">
+  <header class="project-intro section-shell">
+    <a class="project-back" href="./#horror"><span data-de="Projektarchiv">Project archive</span> <span aria-hidden="true">←</span></a>
+    <h1 data-de="Automatisierte Horrorstory- und Videoproduktion">Automated Horror Story &amp; Video Production</h1>
+    <p class="project-lede" data-de="Ich habe einen separaten lokalen Python-Ablauf entwickelt, der fiktive Kurzgeschichten in vertonte Videos mit generierten Bildern und Untertiteln umwandelt.">I built a separate local Python workflow to turn short fictional stories into narrated videos with synthesized imagery and subtitles.</p>
+    <p class="project-meta"><span>2026</span><span data-de="Prototyp mit generierter Ausgabe">Prototype with generated output</span><span>Python · Qwen3 · Kokoro · FFmpeg</span></p>
+    <a class="project-link" href="#horror-sample"><span data-de="Ausschnitt ansehen">Watch the excerpt</span> <span aria-hidden="true">→</span></a>
+  </header>
+  <section class="project-evidence section-shell" id="horror-sample">
+    <div>
+      <h2 data-de="Generierter Ausschnitt">Generated excerpt</h2>
+      <p data-de="42 Sekunden aus einer 2:53 Minuten langen Ausgabe vom 24. September 2026.">42 seconds from a 2:53 output generated on 24 September 2026.</p>
+    </div>
+    <video controls playsinline preload="none" width="270" height="480"
+        poster="../assets/horror-generated-frame.jpg" aria-label="Excerpt from generated horror short" data-aria-label-de="Ausschnitt aus generiertem Horror-Kurzvideo">
+        <source src="../assets/horror-generated-excerpt.mp4" type="video/mp4">
+      </video>
+  </section>
+  <section class="project-section section-shell">
+    <h2 data-de="Vertonung und Untertitel synchronisieren">Aligning narration and subtitles</h2>
+    <div>
+      <p data-de="Die archivierten Python-Module nutzen ein lokales Qwen3-Modell für die Geschichte, Kokoro für die Vertonung und faster-whisper für Wortzeitmarken. Diffusers erzeugt Bilder. FFmpeg setzt animierte Szenen, Ton und ASS-Untertitel zusammen.">The archived Python modules use a local Qwen3 model for the story, Kokoro for narration and faster-whisper for word timing. Diffusers creates images, and FFmpeg assembles animated scenes, audio and ASS subtitles.</p>
+    </div>
+  </section>
+  <section class="project-section section-shell">
+    <h2 data-de="Geprüfter Umfang">Tested scope</h2>
+    <div>
+      <p data-de="Im Audit vom November 2026 bestanden 530 Offline-Tests und 42 Untertests. Im früheren Batch-Bericht waren 3 von 12 Ausgaben erfolgreich. Ein neuer vollständiger Modelllauf und ein kompletter Batch-Lauf sind noch nicht verifiziert.">In the November 2026 audit, 530 offline tests plus 42 subtests passed. The previous batch report recorded 3 successful outputs out of 12. Fresh full model inference and a complete batch run are still unverified.</p>
+    </div>
+  </section>
+  <div class="project-end section-shell">
+    <a class="project-link" href="./"><span data-de="Alle Projekte">All projects</span> <span aria-hidden="true">→</span></a>
+    <a class="project-link" href="../index.html#contact"><span data-de="Kontakt aufnehmen">Get in touch</span> <span aria-hidden="true">→</span></a>
+  </div>
+</main>
+<footer class="site-footer portfolio-footer">
+<div class="footer-shell shell">
+<div class="footer-identity"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><p>© <span data-year="">2026</span> Loran Mustafa</p>
+</div>
+<div class="footer-meta"><a href="mailto:loran@notedbit.com">Email</a><a href="https://www.linkedin.com/in/loran-mustafa" rel="noopener noreferrer" target="_blank">LinkedIn</a><a href="https://github.com/notedbit" rel="noopener noreferrer" target="_blank">GitHub</a>
+</div>
+</div></footer>
+</body>
+</html>

@@ -487,8 +487,9 @@
     startPanel.classList.remove("is-hidden");
     endPanel.classList.add("is-hidden");
     teleportButton.classList.toggle("is-hidden", selectedClass !== "mage");
+    canvas.tabIndex = 0;
     draw();
-    canvas.focus?.();
+    canvas.focus({ preventScroll: true });
   }
 
   function nextLevel() {
@@ -509,6 +510,8 @@
     startPanel.classList.add("is-hidden");
     endPanel.classList.remove("is-hidden");
     overlay.classList.add("is-visible");
+    canvas.tabIndex = -1;
+    playAgainButton.focus();
     updateHud();
   }
 
@@ -520,7 +523,9 @@
     endPanel.classList.add("is-hidden");
     overlay.classList.add("is-visible");
     teleportButton.classList.remove("is-active");
+    canvas.tabIndex = -1;
     drawIdleBackground();
+    characterButtons.find(button => button.dataset.character === selectedClass)?.focus();
   }
 
 
@@ -608,7 +613,11 @@
   characterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       selectedClass = button.dataset.character;
-      characterButtons.forEach((item) => item.classList.toggle("is-selected", item === button));
+      characterButtons.forEach((item) => {
+        const selected = item === button;
+        item.classList.toggle("is-selected", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
     });
   });
 
@@ -622,39 +631,25 @@
 
   teleportButton.addEventListener("click", toggleTeleport);
 
-  document.addEventListener("keydown", (event) => {
-    const keyMap = {
-      ArrowUp: "up",
-      ArrowDown: "down",
-      ArrowLeft: "left",
-      ArrowRight: "right"
-    };
+  const directions = new Map([
+    ["ArrowUp", "up"],
+    ["ArrowDown", "down"],
+    ["ArrowLeft", "left"],
+    ["ArrowRight", "right"]
+  ]);
+  canvas.addEventListener("keydown", (event) => {
+    if (!state?.running || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
 
-    if (keyMap[event.key]) {
+    const direction = directions.get(event.key);
+    if (direction) {
       event.preventDefault();
-      playerMove(keyMap[event.key]);
-      return;
-    }
-
-    if (event.key.toLowerCase() === "t") {
+      playerMove(direction);
+    } else if (event.key.toLowerCase() === "t") {
       event.preventDefault();
       toggleTeleport();
-    }
-
-    if (event.key.toLowerCase() === "r") {
+    } else if (event.key.toLowerCase() === "r") {
       event.preventDefault();
       showStartScreen();
-    }
-
-    if (!state && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
-      selectedClass = selectedClass === "fighter" ? "mage" : "fighter";
-      characterButtons.forEach((button) => {
-        button.classList.toggle("is-selected", button.dataset.character === selectedClass);
-      });
-    }
-
-    if (!state && event.key === "Enter") {
-      startGame();
     }
   });
 

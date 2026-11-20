@@ -9,7 +9,11 @@
   const colors = ['#a7edff','#f2a9dc','#e6d18f','#b0b4ff','#85e6c7','#f6bc91'];
   const clamp = (n,a,b) => Math.max(a,Math.min(b,n));
   const rngFactory = seed => { let n = (Number(seed) || 1) >>> 0; return () => { n = (1664525 * n + 1013904223) >>> 0; return n / 4294967296; }; };
-  let rand, balls, particles, seconds, score, current, paused = false, rafLast = 0, accumulator = 0, ringR = 155, round = 0, nextRound = 0, nextRoundCount = 1;
+  let rand, balls, particles, seconds, score, current, rafLast = 0, accumulator = 0, ringR = 155, round = 0, nextRound = 0, nextRoundCount = 1;
+  let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let frameRequest = 0;
+  const language = () => document.documentElement.lang;
+  const localized = (english, german) => language() === 'de' ? german : english;
   const speed = () => Number($('speed').value);
   const gravity = () => Number($('gravity').value);
   function ball(x,y,vx,vy,r=8) { return { x,y,vx,vy,r,color:colors[Math.floor(rand()*colors.length)],trail:[] }; }
@@ -96,16 +100,35 @@
     ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillStyle='#8ea8bb';ctx.fillText('MODE / '+current.toUpperCase(),15,25);ctx.fillText('SEED / '+String($('seed').value),15,41);
   }
   let statsTimer=0;
-  function updateStats(){ $('time').textContent=seconds.toFixed(1)+' s';$('count').textContent=String(balls.length);$('progress').textContent=String(score);$('status').textContent=paused?'Paused':'Running'; }
+  function updateStats(){ $('time').textContent=seconds.toFixed(1)+' s';$('count').textContent=String(balls.length);$('progress').textContent=String(score); }
   function frame(now){ if(!rafLast)rafLast=now;let elapsed=Math.min((now-rafLast)/1000,.1);rafLast=now;
-    if(!paused){accumulator+=elapsed;while(accumulator>=STEP){step(STEP);accumulator-=STEP;}statsTimer+=elapsed;if(statsTimer>.08){updateStats();statsTimer=0;}}
-    draw();requestAnimationFrame(frame);}
-  $('restart').addEventListener('click',()=>{reset();paused=false; $('toggle').textContent=document.documentElement.lang==='de'?'Pause':'Pause';});
-  $('toggle').addEventListener('click',()=>{paused=!paused;$('toggle').textContent=paused?(document.documentElement.lang==='de'?'Weiter':'Resume'):'Pause';updateStats();});
+    accumulator+=elapsed;while(accumulator>=STEP){step(STEP);accumulator-=STEP;}statsTimer+=elapsed;if(statsTimer>.08){updateStats();statsTimer=0;}
+    draw();frameRequest=requestAnimationFrame(frame);}
+  function setPaused(value) {
+    paused = value;
+    $('toggle').textContent = paused ? localized('Resume', 'Weiter') : 'Pause';
+    $('status').textContent = paused ? localized('Paused', 'Pausiert') : localized('Running', 'Läuft');
+    if (paused) {
+      cancelAnimationFrame(frameRequest);
+      frameRequest = 0;
+      rafLast = 0;
+      updateStats();
+    } else if (!frameRequest) {
+      frameRequest = requestAnimationFrame(frame);
+    }
+  }
+  $('restart').addEventListener('click',()=>{reset();setPaused(false);});
+  $('toggle').addEventListener('click',()=>setPaused(!paused));
   $('speed').addEventListener('input',()=>{$('speed-value').textContent=$('speed').value;});
   $('mode').addEventListener('change',reset);$('gravity').addEventListener('change',reset);$('seed').addEventListener('change',reset);
   // Preserve site language preference without depending on the parent site's scripts.
   let lang = null; try {lang=localStorage.getItem('notedbit-language')||localStorage.getItem('notedbit-lang');} catch(_) { /* storage can be disabled */ }
-  if(lang==='de'){document.documentElement.lang='de';document.querySelectorAll('[data-de]').forEach(e=>e.textContent=e.dataset.de);}
-  reset();requestAnimationFrame(frame);
+  if (lang === 'de') {
+    document.documentElement.lang = 'de';
+    document.title = 'Archivierter Simulationsprototyp — notedbit';
+    document.querySelectorAll('[data-de]').forEach(element => element.textContent = element.dataset.de);
+    document.querySelectorAll('[data-aria-label-de]').forEach(element => element.setAttribute('aria-label', element.dataset.ariaLabelDe));
+  }
+  reset();
+  setPaused(paused);
 })();

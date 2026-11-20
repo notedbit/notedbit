@@ -5,8 +5,9 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Play Dungeon Crawler — notedbit</title>
-<meta content="A browser adaptation of the original independently developed C++ Dungeon Crawler project." name="description"/>
+<meta content="Play the JavaScript adaptation of the independently developed C++ Dungeon Crawler." data-content-de="Spiele die JavaScript-Adaption des eigenständig entwickelten C++ Dungeon Crawlers." name="description"/>
 <meta content="#0b0d10" name="theme-color"/>
+<link href="https://notedbit.com/games/dungeoncrawler/" rel="canonical"/>
 <link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="../../style.css" rel="stylesheet"/>
 <link href="game.css" rel="stylesheet"/>
@@ -29,19 +30,19 @@
 </div>
 </div>
 </header>
-<main class="game-shell" id="game">
+<main class="game-shell" id="game" tabindex="-1">
 <section class="game-intro">
 <div>
 <p class="section-kicker">Browser adaptation</p>
 <h1>Dungeon Crawler</h1>
-<p>
+<p data-de="Diese Browser-Version verwendet ausgewählte Spielmechaniken und die Pixelgrafiken des eigenständig entwickelten C++-Originals.">
           A lightweight browser version based on the mechanics and original pixel
           assets of the original independently developed C++ project.
         </p>
 </div>
 <div class="game-note">
 <span>Controls</span>
-<p>Arrow keys to move · T + arrow to teleport as Mage · R to restart</p>
+<p id="game-keys" data-de="Auf dem Spielfeld: Pfeiltasten zum Bewegen, T + Pfeiltaste zum Teleportieren als Magier und R für einen Neustart.">On the game board: arrow keys to move, T + arrow to teleport as Mage, and R to restart.</p>
 </div>
 </section>
 <section class="game-layout">
@@ -60,18 +61,18 @@
 </div>
 </div>
 <div class="canvas-wrap">
-<canvas aria-label="Dungeon Crawler game area" height="600" id="dungeon-canvas" width="600"></canvas>
+<canvas aria-describedby="game-keys" aria-label="Dungeon Crawler game area" height="600" id="dungeon-canvas" tabindex="-1" width="600"></canvas>
 <div class="game-overlay is-visible" data-overlay="">
 <div class="overlay-panel" data-start-panel="">
 <p class="section-kicker">Choose a character</p>
 <h2>Enter the dungeon</h2>
 <div class="character-grid">
-<button class="character-card is-selected" data-character="fighter" type="button">
+<button aria-pressed="true" class="character-card is-selected" data-character="fighter" type="button">
 <img alt="" height="80" src="assets/kaempfer.png" width="80"/>
 <strong>Fighter</strong>
 <span>50 HP · 15 attack</span>
 </button>
-<button class="character-card" data-character="mage" type="button">
+<button aria-pressed="false" class="character-card" data-character="mage" type="button">
 <img alt="" height="80" src="assets/mage.png" width="80"/>
 <strong>Mage</strong>
 <span>20 HP · 8 attack · teleport</span>
@@ -91,7 +92,7 @@
 </div>
 </div>
 </div>
-<div aria-label="Touch controls" class="mobile-controls">
+<div role="group" aria-label="Touch controls" class="mobile-controls">
 <button aria-label="Move up" class="control-button control-up" data-move="up" type="button">↑</button>
 <button aria-label="Move left" class="control-button control-left" data-move="left" type="button">←</button>
 <button aria-label="Move down" class="control-button control-down" data-move="down" type="button">↓</button>
@@ -102,7 +103,7 @@
 <aside class="game-sidebar">
 <div class="sidebar-card">
 <p class="section-kicker">Current run</p>
-<p class="game-message" data-message="">Select a character to begin.</p>
+<p aria-live="polite" class="game-message" data-message="">Select a character to begin.</p>
 </div>
 <div class="sidebar-card">
 <p class="section-kicker">Original mechanics</p>
