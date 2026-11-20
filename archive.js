@@ -18,7 +18,6 @@
       Number(b.dataset.sortYear || 0) - Number(a.dataset.sortYear || 0));
     const chronologicalSection = document.createElement('section');
     chronologicalSection.className = 'archive-all-section';
-    chronologicalSection.setAttribute('aria-label', 'All projects, newest documented work first');
     const chronologicalList = document.createElement('div');
     chronologicalList.className = 'archive-records archive-all-records';
     chronologicalSection.append(chronologicalList);
@@ -114,14 +113,7 @@
           const button = game?.querySelector('[data-game-toggle]');
           if (frame) frame.hidden = true;
           if (iframe) iframe.removeAttribute('src');
-          if (button) {
-            button.setAttribute('aria-expanded', 'false');
-            const label = button.querySelector('[data-de]');
-            if (label) {
-              label.dataset.de = 'Spiel hier laden';
-              label.textContent = document.documentElement.lang === 'de' ? 'Spiel hier laden' : 'Load game here';
-            }
-          }
+          if (button) button.setAttribute('aria-expanded', 'false');
           return;
         }
         // One expanded project at a time, even where details[name] is unsupported.
@@ -145,13 +137,6 @@
         const opening = frame.hidden;
         frame.hidden = !opening;
         button.setAttribute('aria-expanded', String(opening));
-        const de = document.documentElement.lang === 'de';
-        // Keep buttons bilingual without putting translated text in a live label.
-        const label = button.querySelector('[data-de]');
-        if (label) {
-          label.dataset.de = opening ? 'Spiel verbergen' : 'Spiel hier laden';
-          label.textContent = opening ? (de ? 'Spiel verbergen' : 'Hide game') : (de ? 'Spiel hier laden' : 'Load game here');
-        }
         if (opening && !iframe.hasAttribute('src')) iframe.src = iframe.dataset.gameSrc;
         if (!opening && iframe.contentWindow) {
           // Remove the iframe source so a running game does not keep consuming CPU.
@@ -162,7 +147,12 @@
 
     // The homepage can link directly to a specific expanded project (#video etc.).
     function openHash() {
-      const hash = decodeURIComponent(window.location.hash.slice(1));
+      let hash;
+      try {
+        hash = decodeURIComponent(window.location.hash.slice(1));
+      } catch {
+        return;
+      }
       const target = records.find(r => r.id === hash);
       if (!target) return;
       category = target.dataset.category;

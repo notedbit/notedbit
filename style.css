@@ -1,5 +1,5 @@
 /* ------------------------------
-   Notedbit — base
+   notedbit — base
 ------------------------------ */
 
 :root {
@@ -1348,7 +1348,7 @@ svg {
   }
 }
 /* ------------------------------
-   Notedbit wordmark
+   notedbit wordmark
 ------------------------------ */
 
 .wordmark {
@@ -2184,7 +2184,7 @@ svg {
   .detail-hero-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* Notedbit V1.3 — bilingual navigation and recorded prototype */
+/* notedbit V1.3 — bilingual navigation and recorded prototype */
 .nav-shell { gap: 12px; }
 .site-nav { margin-left: auto; }
 .language-switch {
@@ -2316,7 +2316,7 @@ svg {
   font-weight: 600;
 }
 
-/* Notedbit V1.4 — full project archive and homepage archive entry */
+/* notedbit V1.4 — full project archive and homepage archive entry */
 .project-archive-link {
   margin-top: 30px; padding: clamp(22px, 3vw, 33px);
   display: flex; justify-content: space-between; align-items: center; gap: 22px;
@@ -2441,7 +2441,7 @@ svg {
 @media(max-width:760px) { .notedbit-preview-real img { min-height: 280px; } }
 
 /* ==============================================
-   Notedbit — editorial portfolio refresh (2026)
+   notedbit — editorial portfolio refresh (2026)
    Meaningful content first; no animation dependency.
    ============================================== */
 :root {
@@ -2799,7 +2799,7 @@ body::before { content:""; pointer-events:none; z-index:-1; position:absolute; i
  .archive-record summary,.archive-record-chevron { transition: none; }
 }
 /* ==========================================================
-   Notedbit / compact editorial redesign — November 2026
+   notedbit / compact editorial redesign — November 2026
    Goals: clear hierarchy at native laptop zoom; real color
    contrast; short home page; project details remain optional.
    This layer deliberately supersedes the old oversized layout.
@@ -3048,7 +3048,7 @@ body::before { height:660px; background:radial-gradient(ellipse at 74% 13%,rgba(
 .contact-panel p:not(.micro-label) { color:#3d5a63; font-size:.78rem; line-height:1.55; max-width:460px; }
 
 /* =============================================================
-   Notedbit interactive portfolio / November 2026
+   notedbit interactive portfolio / November 2026
    Scoped to the new homepage workspace, archive, and case studies.
    Existing media, games and non-redesigned components stay intact.
    ============================================================= */
@@ -3122,7 +3122,7 @@ body { background:linear-gradient(180deg,#0c121c 0,#0b111a 34rem,#0b111a 100%); 
 .studio-project:nth-child(2) .studio-project-cover {background:radial-gradient(ellipse at center,#372444 0%,#21192c 82%);}
 .studio-project:nth-child(2) .studio-project-cover::before {content:'';position:absolute;inset:-16px;z-index:0;background:url('assets/dungeoncrawler-preview.png') center/cover no-repeat;filter:blur(13px);opacity:.2;pointer-events:none;}
 .studio-project:nth-child(2) .studio-project-cover img {position:absolute;inset:0;image-rendering:pixelated;object-fit:contain;width:100%;height:100%;}
-/* Website: genuine Notedbit screenshot with browser header and hero preserved. */
+/* Website: genuine notedbit screenshot with browser header and hero preserved. */
 .studio-project:nth-child(3) .studio-project-cover {background:#0c1725;padding:7px 11px;}
 .studio-project:nth-child(3) .studio-project-cover img {position:absolute;inset:7px 11px;object-fit:contain;object-position:center;width:calc(100% - 22px);height:calc(100% - 14px);border-radius:4px;}
 .studio-project:hover .studio-project-cover img {transform:scale(1.015);}
@@ -3318,7 +3318,7 @@ body { background:linear-gradient(180deg,#0c121c 0,#0b111a 34rem,#0b111a 100%); 
 .studio-project[open] .studio-collapse-label {display:inline;}
 
 
-/* Notedbit polish 2026-11 — functional density and factual media */
+/* notedbit polish 2026-11 — functional density and factual media */
 .archive-main.is-all-view .archive-group-head {display:none!important;}
 .archive-main.is-all-view .archive-group {margin:0;}
 .archive-main.is-all-view:not(.is-card-view) .archive-records {margin:0;}
@@ -3410,10 +3410,28 @@ body { background:linear-gradient(180deg,#0c121c 0,#0b111a 34rem,#0b111a 100%); 
 .source-evidence{margin:18px 0 0;max-width:760px}
 .source-evidence figcaption{margin-bottom:8px;color:#9eb4c8;font-size:.75rem}
 .source-evidence pre{margin:0;padding:16px;white-space:pre;overflow:auto;background:#101e2d;border:1px solid #32485d;border-radius:9px;color:#c2d9e9;font-size:.78rem;line-height:1.6}
-.archive-record-thumb img[src$="simulation-browser-demo.webp"]{object-fit:cover;object-position:center 48%}
 .archive-record-thumb img[src$="horror-generated-frame.jpg"]{object-fit:cover;object-position:center 42%}
 .studio-hero h1,.studio-hero h1>span{overflow:visible!important;line-height:1.19;padding-bottom:.11em}
 .studio-hero h1{letter-spacing:-.05em}
 @media(max-width:760px){.studio-hero h1{font-size:clamp(2rem,7.7vw,3.25rem);line-height:1.22}}
 /* Scale safely at 125% zoom: do not force a 320 CSS-pixel body wider than the viewport. */
 body{min-width:0}
+
+
+[data-game-toggle][aria-expanded="false"] [data-game-label="hide"],
+[data-game-toggle][aria-expanded="true"] [data-game-label="load"] {
+  display: none;
+}
+
+#video-sample {
+  scroll-margin-top: 6rem;
+}
+
+.skills-board .studio-small-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.studio-project-titleblock > .archive-record-description {
+  display: block;
+}
