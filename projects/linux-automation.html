@@ -1,25 +1,70 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title data-de="Linux-Konfiguration &amp; Systemautomatisierung — notedbit">Linux Configuration &amp; System Automation — notedbit</title>
+  <meta content="Practical Linux administration and automation work, including scripted maintenance, system diagnostics and a previously operated private game server." data-content-de="Praktische Linux-Konfiguration und Automatisierung mit skriptbasierter Wartung, Systemdiagnose und einem früher betriebenen privaten Spielserver." name="description"/>
+  <meta content="#121615" name="theme-color"/>
+  <meta content="website" property="og:type"/>
+  <meta content="Linux Configuration &amp; System Automation — notedbit" data-content-de="Linux-Konfiguration &amp; Systemautomatisierung — notedbit" property="og:title">
+  <meta content="Practical Linux administration and automation work, including scripted maintenance, system diagnostics and a previously operated private game server." data-content-de="Praktische Linux-Konfiguration und Automatisierung mit skriptbasierter Wartung, Systemdiagnose und einem früher betriebenen privaten Spielserver." property="og:description"/>
+  <meta content="https://notedbit.com/projects/linux-automation.html" property="og:url"/>
+  <meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
+  <link href="https://notedbit.com/projects/linux-automation.html" rel="canonical"/>
+  <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="../style.css" rel="stylesheet"/>
+  <link href="../portfolio.css" rel="stylesheet"/>
+  <link href="projects.css" rel="stylesheet"/>
+  <script defer="" src="../language.js"></script>
+  <script defer="" src="../script.js"></script>
+</head>
+<body class="case-study">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header" data-header="">
+<div class="nav-shell shell"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" class="nav-toggle" data-nav-toggle="" type="button"><span></span><span></span></button>
+<nav aria-label="Primary navigation" class="site-nav" id="primary-nav"><a href="../index.html#work"><span data-de="Projekte">Selected work</span></a><a href="./"><span data-de="Archiv">Archive</span></a><a href="../index.html#about"><span data-de="Profil">About</span></a><a href="../index.html#contact"><span data-de="Kontakt">Contact</span></a>
+</nav>
+<div aria-label="Sprache / Language" class="language-switch" data-language-switch="" role="group"><button aria-label="Deutsch wählen" aria-pressed="false" data-lang="de" lang="de" type="button">DE</button><span aria-hidden="true">/</span><button aria-label="Choose English" aria-pressed="true" data-lang="en" lang="en" type="button">EN</button>
+</div>
+</div></header>
+<main id="main-content" tabindex="-1">
+  <header class="project-intro section-shell">
+    <a class="project-back" href="./#linux"><span data-de="Projektarchiv">Project archive</span> <span aria-hidden="true">←</span></a>
+    <h1 data-de="Linux-Konfiguration &amp; Systemautomatisierung">Linux Configuration &amp; System Automation</h1>
+    <p class="project-lede" data-de="Ich habe eine Kubuntu-Installation auf NVMe migriert und die lokale Paketwartung mit einem Shell-Skript und systemd automatisiert.">I migrated a Kubuntu installation to NVMe and automated local package maintenance using a shell script and systemd.</p>
+    <p class="project-meta"><span>2026</span><span data-de="Arbeiten am lokalen System">Local systems work</span><span>Kubuntu · Bash · systemd</span></p>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title data-de="Linux-Konfiguration &amp; Systemautomatisierung — Notedbit">Linux Configuration &amp; System Automation — Notedbit</title>
-<meta content="Practical Linux administration and automation work, including scripted maintenance, system diagnostics and a previously operated private game server." data-content-de="Praktische Linux-Konfiguration und Automatisierung mit skriptbasierter Wartung, Systemdiagnose und einem früher betriebenen privaten Spielserver." name="description"/>
-<meta content="#0b0d10" name="theme-color"/><meta content="website" property="og:type"/>
-<meta content="Linux Configuration &amp; System Automation — Notedbit" data-content-de="Linux-Konfiguration &amp; Systemautomatisierung — Notedbit" property="og:title"/>
-<meta content="Practical Linux administration and automation work, including scripted maintenance, system diagnostics and a previously operated private game server." data-content-de="Praktische Linux-Konfiguration und Automatisierung mit skriptbasierter Wartung, Systemdiagnose und einem früher betriebenen privaten Spielserver." property="og:description"/>
-<meta content="https://notedbit.com/projects/linux-automation.html" property="og:url"/><meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
-<link href="https://notedbit.com/projects/linux-automation.html" rel="canonical"/><link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="../style.css" rel="stylesheet"/><script defer="" src="../language.js"></script><script defer="" src="../script.js"></script>
-</head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header" data-header=""><div class="nav-shell shell"><a aria-label="Notedbit home" class="brand wordmark" href="../index.html"><span>Note</span><span class="wordmark-db">db</span><span>it</span></a><button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" class="nav-toggle" data-nav-toggle="" type="button"><span></span><span></span></button><nav aria-label="Primary navigation" class="site-nav" id="primary-nav"><a href="../index.html#work"><span data-de="Arbeiten">Work</span></a><a href="../projects/"><span data-de="Alle Projekte">All projects</span></a><a href="../index.html#about"><span data-de="Über mich">About</span></a><a href="../index.html#contact"><span data-de="Kontakt">Contact</span></a></nav><div aria-label="Sprache / Language" class="language-switch" data-language-switch="" role="group"><button aria-label="Deutsch wählen" aria-pressed="false" data-lang="de" lang="de" type="button">DE</button><span aria-hidden="true">/</span><button aria-label="Choose English" aria-pressed="true" data-lang="en" lang="en" type="button">EN</button></div></div></header>
-<main id="main-content"><section class="case-hero section-shell"><a class="back-link" href="./">← Projects</a>
-<p class="section-kicker" data-de="Technische Arbeiten · Konfiguration, Fehleranalyse und Betrieb">Technical work · Configuration, troubleshooting and operations</p>
-<h1 class="case-title" data-de="Linux-Konfiguration &amp; Systemautomatisierung">Linux Configuration &amp; System Automation</h1>
-<p class="case-lede" data-de="Praktische Linux-Konfiguration und Automatisierung mit skriptbasierter Wartung, Systemdiagnose und einem früher betriebenen privaten Spielserver.">Practical Linux administration and automation work, including scripted maintenance, system diagnostics and a previously operated private game server.</p>
-<div class="case-tags"><span>Linux</span><span>Bash</span><span>systemd</span><span>APT / Flatpak</span><span>Server operation</span></div>
-<p class="case-fact-line"><span data-de="2026 · Dokumentierte Konfiguration">2026 · Documented configuration</span><span data-de="Durchgeführte Arbeiten · laufende Nutzung und Wartung">Completed tasks · Ongoing learning and maintenance</span></p>
-</section><section class="case-section section-shell"><div class="case-section-head">
-<h2 data-de="Shell und systemd">Shell and systemd</h2>
-</div><div class="case-section-body"><p data-de="Zu den Linux-Wartungsaufgaben gehören skriptbasierte APT-/Flatpak-Updates und eine Zeitsteuerung über systemd. Die Arbeiten zeigen lokale Automatisierung, nicht die Administration produktiver Unternehmensinfrastruktur.">Linux maintenance tasks include scripted APT/Flatpak updates and systemd-based scheduling. The work demonstrates configuration and operation of local automation, not production-scale infrastructure administration.</p></div></section><section class="case-section section-shell"><div class="case-section-head">
-<h2 data-de="Fehleranalyse und Systemmigration">Troubleshooting and system migration</h2>
-</div><div class="case-section-body"><p data-de="Dokumentierte Arbeiten umfassen Boot- und Datenträgermigration, Desktop- und Hardwarekonfiguration, Audio-/Netzwerkdiagnose und Untersuchungen schwankender WLAN-/Downloadgeschwindigkeiten. Eine Datenträgermigration auf NVMe wurde abgeschlossen und das System erfolgreich gestartet.">Documented work includes boot and storage migration, desktop and hardware configuration, audio/network diagnostics and investigation of fluctuating Wi-Fi/download performance. A disk-to-NVMe migration was completed and the system booted successfully.</p></div></section><section class="case-section section-shell" id="server"><div class="case-section-head">
-<h2 data-de="Privater Spielserver · Oktober 2026">Private game server · October 2026</h2>
-</div><div class="case-section-body"><p class="case-fact-line"><span data-de="Oktober 2026 · selbst eingerichtet und administriert">October 2026 · self-configured and administered</span></p><p data-de="Der private Dauntless-Revived-Server wurde im Oktober 2026 unter Linux eingerichtet und administriert, einschließlich Backups und Wartung. Das gefundene Verzeichnis enthält Community-Projekt-Quellcode, der nicht als eigene Spieleentwicklung dargestellt werden darf. Der Eintrag dokumentiert ausschließlich Bereitstellung und Betrieb.">The private Dauntless Revived server was configured and administered under Linux in October 2026, including backups and maintenance. The retrieved directory contains community-project server source; it must not be represented as an original game implementation. This item documents deployment and operations only.</p></div></section><section class="case-end section-shell"><a class="button button-secondary" href="./"><span data-de="Alle Projekte">All projects</span><span aria-hidden="true"> ↗</span></a><a class="button button-secondary" href="../index.html#contact"><span data-de="Kontakt">Contact</span><span aria-hidden="true"> ↗</span></a></section></main><footer class="site-footer portfolio-footer"><div class="footer-shell shell"><div class="footer-identity"><a aria-label="Notedbit home" class="brand wordmark" href="../index.html"><span>Note</span><span class="wordmark-db">db</span><span>it</span></a><p>© <span data-year="">2026</span> Loran Mustafa</p></div><div class="footer-meta"><a href="mailto:loran@notedbit.com">Email</a><a href="https://www.linkedin.com/in/loran-mustafa" rel="noopener noreferrer" target="_blank">LinkedIn</a><a href="https://github.com/notedbit" rel="noopener noreferrer" target="_blank">GitHub</a></div></div></footer></body></html>
+  </header>
+  <section class="project-section section-shell">
+    <h2 data-de="Wartung zeitlich planen">Scheduling maintenance</h2>
+    <div>
+      <p data-de="Ich habe die Aktualisierungsbefehle für APT und Flatpak in einem Shell-Skript zusammengefasst. Ein systemd-Dienst führt es aus, ein separater Timer legt den Zeitplan fest.">I kept the APT and Flatpak update commands in a shell script. A systemd service runs it and a separate timer controls the schedule.</p>
+    </div>
+  </section>
+  <section class="project-section section-shell">
+    <h2 data-de="Migration und Fehlersuche">Migration and troubleshooting</h2>
+    <div>
+      <p data-de="Nach dem Umzug der Installation auf ein NVMe-Laufwerk habe ich die Boot-Konfiguration eingerichtet und den erfolgreichen Start geprüft. Weitere Arbeiten betrafen schwankenden WLAN-Durchsatz sowie die Audio- und Netzwerkkonfiguration.">After moving the installation to an NVMe drive, I configured the boot setup and checked that the system started successfully. Other work included diagnosing fluctuating Wi-Fi throughput and investigating audio and network configuration.</p>
+    </div>
+  </section>
+  <section class="project-section section-shell" id="server">
+    <h2 data-de="Privater Spielserver">Private game server</h2>
+    <div>
+      <p data-de="Im Oktober 2026 habe ich einen privaten Dauntless-Revived-Server unter Linux eingerichtet und verwaltet, einschließlich Wartung und Backups. Die Serversoftware stammt aus dem Community-Projekt. Der Server ist außer Betrieb.">In October 2026, I set up and administered a private Dauntless Revived server on Linux, including maintenance and backups. The setup used community server software. The server is no longer in operation.</p>
+    </div>
+  </section>
+  <div class="project-end section-shell">
+    <a class="project-link" href="./"><span data-de="Alle Projekte">All projects</span> <span aria-hidden="true">→</span></a>
+    <a class="project-link" href="../index.html#contact"><span data-de="Kontakt aufnehmen">Get in touch</span> <span aria-hidden="true">→</span></a>
+  </div>
+</main>
+<footer class="site-footer portfolio-footer">
+<div class="footer-shell shell">
+<div class="footer-identity"><a aria-label="notedbit home" class="brand wordmark" href="../index.html"><span>note</span><span class="wordmark-db">db</span><span>it</span></a><p>© <span data-year="">2026</span> Loran Mustafa</p>
+</div>
+<div class="footer-meta"><a href="mailto:loran@notedbit.com">Email</a><a href="https://www.linkedin.com/in/loran-mustafa" rel="noopener noreferrer" target="_blank">LinkedIn</a><a href="https://github.com/notedbit" rel="noopener noreferrer" target="_blank">GitHub</a>
+</div>
+</div></footer>
+</body>
+</html>

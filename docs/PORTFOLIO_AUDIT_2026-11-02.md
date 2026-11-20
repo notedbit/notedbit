@@ -1,4 +1,6 @@
-# Notedbit — source-backed portfolio review (2026-11-02)
+# notedbit — source-backed portfolio review (2026-11-02)
+
+**Update, 20 November 2026:** The Python simulation has known physics and collision defects. Its separate Canvas adaptation is archived and no longer offered as a portfolio demo. The historical browser smoke test checked execution and controls. A working video export is unverified.
 
 This report records **what was actually verified** for the public portfolio. It is not a warranty that every desktop app is ready for distribution.
 

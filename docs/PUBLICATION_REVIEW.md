@@ -12,7 +12,7 @@
 - Confirm Pages deploy succeeds and `CNAME` retains `notedbit.com`.
 - Check all new pages on desktop, 390px mobile and 320px narrow screen.
 - Check EN -> DE -> EN on every case page, and that preference persists after navigation.
-- Check all demos: product and horror MP4 playback, interactive Canvas simulation and playable Dungeon Crawler browser adaptation.
+- Check all demos: product and horror MP4 playback, the playable Dungeon Crawler browser adaptation and the archived status of the Canvas simulation.
 - Check the external LinkedIn and GitHub links.
 - Check project claims against current code/tests before changing a status to completed.
 - Avoid announcing a public repository for unpublished projects.

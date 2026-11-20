@@ -1,4 +1,4 @@
-# Notedbit — portfolio & project archive
+# notedbit — portfolio & project archive
 
 Static bilingual technical portfolio by **Loran Mustafa**.
 
@@ -53,15 +53,15 @@ Visit `http://localhost:8000`. The local server is useful because the game uses 
 
 ## Attribution and disclosure
 
-- The original **C++ Dungeon Crawler (2022/23)** was university **group** coursework. The **JavaScript browser adaptation** is later work.
+- The original **C++ Dungeon Crawler (2022/23)** was developed independently as university coursework. The **JavaScript browser adaptation** is later work.
 - The **2024 C++ library-management source** is archived, but its command dispatch was incomplete; original individual code authorship is not fully verified. A separate 2026 reconstructed CLI exists in the **review-only delivery package**, not in the public website repository.
 - The **product video** is an earlier prototype. A later automated Linux run tested a *different* output. Do not conflate them.
 - Python simulation and horror-video application source archives are known from the user's Library, but the raw bytes were unavailable for reinspection in this session. Their case studies do not claim a new successful execution.
-- No invented demos, performance numbers, Windows release validation or third-party repository links.
+- The Python simulation remains an incomplete prototype with known physics and collision issues. The separate browser adaptation is archived and omitted from the portfolio demo links.
 
 ## Deploy carefully
 
-The required root `CNAME` contains exactly `notedbit.com`. Do not delete or replace this file with a blank value. The delivery package includes a local publishing script that clones the repository, overlays only the supplied website files, checks `CNAME`, shows the pending changes and requires explicit confirmation before pushing.
+The required root `CNAME` contains exactly `notedbit.com`. Do not delete or replace this file with a blank value. Prepare changes on a separate branch and review them in a pull request. The published Pages deployment follows `main`.
 
 Check copyright/privacy and possible legal-notice obligations before publication: `docs/PUBLICATION_REVIEW.md`.
 
@@ -70,4 +70,4 @@ Check copyright/privacy and possible legal-notice obligations before publication
 
 The archive at `projects/` uses native HTML `<details>` for inline project documentation, a JavaScript category filter and search, and a lazy-loaded embedded game demo. The full case-study pages remain accessible as optional references. Language labels are maintained in the HTML with `data-de` and `language.js`.
 
-The sample video is an earlier prototype output, not a current or final release. No project source or demo is published unless the corresponding material is available and verified.
+The sample video is an earlier prototype output, not a current or final release. The archive distinguishes playable browser adaptations, recorded outputs and incomplete prototypes.
