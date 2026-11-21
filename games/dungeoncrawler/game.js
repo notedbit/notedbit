@@ -183,7 +183,7 @@
     state.enemies = enemies;
     state.player.x = START.x;
     state.player.y = START.y;
-    state.teleportMode = false;
+    setTeleportMode(false);
     state.turnLocked = false;
     setMessage(`Level ${state.level}. Reach the gate at the top.`);
   }
@@ -430,15 +430,13 @@
 
     if (wantsTeleport) {
       if (state.player.gold < 100) {
-        state.teleportMode = false;
-        teleportButton.classList.remove("is-active");
+        setTeleportMode(false);
         setMessage("Teleport requires 100 gold.");
         return;
       }
 
       state.player.gold -= 100;
-      state.teleportMode = false;
-      teleportButton.classList.remove("is-active");
+      setTeleportMode(false);
       tryMoveEntity(state.player, dx, dy, 3, true);
     } else {
       tryMoveEntity(state.player, dx, dy, 1, false);
@@ -446,6 +444,12 @@
 
     if (!state.levelComplete) afterPlayerTurn();
     draw();
+  }
+
+  function setTeleportMode(active) {
+    if (state) state.teleportMode = active;
+    teleportButton.classList.toggle("is-active", active);
+    teleportButton.setAttribute("aria-pressed", String(active));
   }
 
   function toggleTeleport() {
@@ -461,8 +465,7 @@
       return;
     }
 
-    state.teleportMode = !state.teleportMode;
-    teleportButton.classList.toggle("is-active", state.teleportMode);
+    setTeleportMode(!state.teleportMode);
     setMessage(state.teleportMode ? "Teleport ready. Choose a direction." : "Teleport cancelled.");
   }
 
@@ -507,7 +510,7 @@
     overlay.classList.remove("is-visible");
     startPanel.classList.remove("is-hidden");
     endPanel.classList.add("is-hidden");
-    teleportButton.classList.toggle("is-hidden", selectedClass !== "mage");
+    teleportButton.hidden = selectedClass !== "mage";
     canvas.tabIndex = 0;
     draw();
     canvas.focus({ preventScroll: true });
@@ -525,6 +528,8 @@
     if (!state) return;
     state.running = false;
     state.player.alive = false;
+    setTeleportMode(false);
+    teleportButton.hidden = true;
     endKicker.textContent = "Game over";
     endTitle.textContent = `Level ${state.level}`;
     endCopy.textContent = `You collected ${state.player.gold} gold before the run ended.`;
@@ -545,7 +550,8 @@
     startPanel.classList.remove("is-hidden");
     endPanel.classList.add("is-hidden");
     overlay.classList.add("is-visible");
-    teleportButton.classList.remove("is-active");
+    setTeleportMode(false);
+    teleportButton.hidden = true;
     canvas.tabIndex = -1;
     drawIdleBackground();
     characterButtons.find(button => button.dataset.character === selectedClass)?.focus();

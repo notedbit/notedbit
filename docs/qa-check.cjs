@@ -261,6 +261,17 @@ async function interaction(browser, engine) {
   await search.fill(query);
   assert.equal(await visible(), expected);
  }
+ await filter('coursework').click();
+ await search.fill('xxxxxxxxxx');
+ const resetFilters = desktop.locator('[data-archive-reset]');
+ assert.equal(await visible(), 0);
+ assert.equal(await resetFilters.isVisible(), true);
+ await resetFilters.press('Enter');
+ assert.equal(await filter('all').getAttribute('aria-pressed'), 'true');
+ assert.equal(await search.inputValue(), '');
+ assert.equal(await search.evaluate(element => element === document.activeElement), true);
+ assert.equal(await visible(), 11);
+ assert.equal(await resetFilters.isVisible(), false);
  for (const view of ['cards', 'rows']) {
   const button = desktop.locator(`[data-archive-view="${view}"]`);
   await button.click();
@@ -317,6 +328,40 @@ async function interaction(browser, engine) {
  }), true, 'The narrow start panel fits or can be scrolled');
  await mobileStart.click();
  assert.equal(await mobile.locator('[data-hp]').textContent(), '50');
+ const fullscreen = mobile.locator('[data-fullscreen]');
+ const directions = mobile.locator('[data-move]');
+ const teleport = mobile.locator('[data-teleport]');
+ const board = mobile.locator('#dungeon-canvas');
+ assert.equal(await teleport.isVisible(), false);
+ await fullscreen.tap();
+ await mobile.locator('body.game-fullscreen-active').waitFor();
+ for (const direction of await directions.all()) {
+  assert.equal(await direction.evaluate(button => {
+   const box = button.getBoundingClientRect();
+   return box.width >= 44 && box.height >= 44 && box.bottom <= innerHeight;
+  }), true, 'Touch button available within fullscreen');
+ }
+ const previousBoard = await board.evaluate(element => element.toDataURL());
+ await mobile.locator('[data-move="left"]').tap();
+ assert.notEqual(await board.evaluate(element => element.toDataURL()), previousBoard);
+ await fullscreen.tap();
+ await mobile.locator('body.game-fullscreen-active').waitFor({state:'detached'});
+
+ await mobile.setViewportSize({width:640,height:240});
+ await mobile.evaluate(() => { document.documentElement.requestFullscreen = undefined; });
+ await mobile.locator('[data-reset]').tap();
+ await mobile.locator('[data-character="mage"]').tap();
+ await fullscreen.tap();
+ await mobile.locator('body.game-fullscreen-active').waitFor();
+ assert.equal(await mobile.evaluate(() => document.fullscreenElement), null);
+ await mobileStart.tap();
+ assert.equal(await mobile.locator('[data-hp]').textContent(), '20');
+ assert.equal(await teleport.isVisible(), true);
+ assert.equal(await teleport.getAttribute('aria-pressed'), 'false');
+ await teleport.tap();
+ assert.equal(await teleport.getAttribute('aria-pressed'), 'false');
+ await mobile.keyboard.press('Escape');
+ await mobile.locator('body.game-fullscreen-active').waitFor({state:'detached'});
  await open(desktop, 'demos/cpp-exercises/');
  await switchTo(desktop, 'en');
  await desktop.locator('#calc-form button').click();

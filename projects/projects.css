@@ -220,6 +220,19 @@
   font-size: .84rem;
 }
 
+.archive-reset {
+  min-height: 2.75rem;
+  padding: .4rem .5rem;
+  border: 0;
+  background: transparent;
+  color: var(--portfolio-accent);
+  font: inherit;
+  font-size: .84rem;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+  cursor: pointer;
+}
+
 .archive-ledger .archive-filters,
 .archive-ledger .archive-view-switch,
 .archive-ledger .archive-bulk-actions {

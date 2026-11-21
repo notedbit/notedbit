@@ -63,3 +63,12 @@ Im bereits veröffentlichten Produktvideo stimmen drei Bildmotive bei 00:22, 00:
 Beide MP4s enthalten gesprochenen Ton und eingeblendeten englischen Text. Separate Untertitelspuren und geprüfte vollständige Transkripte fehlen. Die V3-Bildbeschreibungen erfassen sichtbare Szenen. Zur Freigabe von Untertiteln müssen Wortlaut, Zeitmarken und relevante Tonereignisse gegen die Originaldateien geprüft und die Erlaubnis zur Weitergabe bestätigt werden.
 
 **Einschätzung:** Inhalt und Bedienung sind für die technische Vorauswahl bei Werkstudentenstellen und Praktika geeignet. Die offenen Betreiber- und Medienrechte verhindern eine vollständige Veröffentlichungsfreigabe. Der V3-PR bleibt bis zur Klärung offen. Der verifizierte `main`-Stand mit PR #3 bleibt live.
+
+## Nachtrag nach dem Merge von PR #4
+
+Ausgangspunkt des Nachtrags ist `44cb032` auf `main`. Das [Pages-Deployment dieses Stands](https://github.com/notedbit/notedbit/actions/runs/44910472494) war erfolgreich.
+
+- Im Vollbild blendete die alte CSS-Regel die Touch-Steuerung aus. Sie belegt jetzt eine eigene Zeile mit mindestens 44 px hohen Tasten. Das Spielfeld behält seine Proportionen im verfügbaren Raum. Bei geringer Höhe lässt sich der Startdialog scrollen. Die Teleport-Taste erscheint beim Magier und gibt ihren Zustand an assistive Technik weiter.
+- Im Archiv setzt eine Aktion Suchtext und Kategorie gemeinsam zurück. Sie erscheint bei aktiven Filtern und gibt nach dem Zurücksetzen den Fokus an das Suchfeld zurück.
+
+Die Tests in `docs/qa-check.cjs` prüfen einen Vollbildlauf mit Touch-Eingabe bei 320 px, den Vollbild-Ersatz ohne Browser-API im 640 × 240 px-Querformat und das Zurücksetzen einer ergebnislosen Suche. Der normale Funktionstest für Archiv, Videos, Sprache und Demos wurde mit Chromium erneut ausgeführt. 14 HTML-Dokumente und 229 interne Referenzen wurden geprüft.
