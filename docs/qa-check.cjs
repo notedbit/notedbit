@@ -217,6 +217,21 @@ async function interaction(browser, engine) {
  await mobile.keyboard.press('Escape');
  assert.equal(await navToggle.getAttribute('aria-expanded'), 'false');
  assert.equal(await navToggle.evaluate(element => document.activeElement === element), true);
+ await mobile.setViewportSize({width:640,height:205});
+ await navToggle.click();
+ const menu = mobile.locator('#primary-nav');
+ assert.equal(await menu.evaluate(element => {
+  const box = element.getBoundingClientRect();
+  return box.bottom <= innerHeight && element.scrollHeight > element.clientHeight
+   && getComputedStyle(element).overflowY === 'auto';
+ }), true, 'Short landscape navigation fits and can scroll');
+ const contactLink = menu.locator('a[href="#contact"]');
+ await contactLink.waitFor({state:'visible'});
+ await contactLink.press('Enter');
+ assert.equal(await navToggle.getAttribute('aria-expanded'), 'false');
+ await mobile.waitForURL(/#contact$/);
+ assert.equal(await mobile.evaluate(() => document.activeElement.id), 'contact');
+ await mobile.setViewportSize({width:390,height:844});
  await switchTo(mobile, 'de');
  await open(mobile, 'projects/');
  assert.equal(await mobile.locator('html').getAttribute('lang'), 'de');
@@ -227,6 +242,7 @@ async function interaction(browser, engine) {
  await workLink.focus();
  await desktop.keyboard.press('Enter');
  assert.match(desktop.url(), /#work$/);
+ assert.equal(await desktop.evaluate(() => document.activeElement.id), 'work');
  for (const id of ['featured-video','featured-dungeon','featured-website','about','skills','contact']) assert.equal(await desktop.locator('#' + id).count(), 1, id);
  await open(desktop, 'projects/');
  const filter = value => desktop.locator(`[data-filter="${value}"]`);
@@ -346,9 +362,75 @@ async function interaction(browser, engine) {
   assert.ok(Math.abs(media.duration - duration) < 0.3);
   console.log('MEDIA', engine, route, media);
  }
+ await legacyNavigation(browser, engine);
+ await gameStartup(browser);
  console.log('INTERACTION', engine, 'passed');
  await desktop.close();
  await mobile.close();
+}
+
+async function legacyNavigation(browser, engine) {
+ const page = await browser.newPage({viewport:{width:390,height:844}, reducedMotion:'reduce'});
+ inspect(page, engine);
+ try {
+  await page.addInitScript(() => {
+   const matchMedia = window.matchMedia.bind(window);
+   window.matchMedia = query => {
+    const result = matchMedia(query);
+    if (query !== '(max-width: 760px)') return result;
+    return {
+     get matches() { return result.matches; },
+     addListener(listener) { result.addListener(listener); }
+    };
+   };
+  });
+  await open(page, '');
+  const toggle = page.locator('[data-nav-toggle]');
+  await toggle.click();
+  assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
+  await page.setViewportSize({width:1024,height:768});
+  await page.waitForFunction(() => document.querySelector('[data-nav-toggle]').getAttribute('aria-expanded') === 'false');
+  assert.equal(await page.locator('body').evaluate(body => body.classList.contains('nav-open')), false);
+ } finally {
+  await page.close();
+ }
+}
+
+async function gameStartup(browser) {
+ const page = await browser.newPage({viewport:{width:1024,height:768}, reducedMotion:'reduce'});
+ const wallSprite = '**/games/dungeoncrawler/assets/Wand.png';
+ let releaseSprite;
+ const delayedResponse = new Promise(resolve => { releaseSprite = resolve; });
+ const start = page.locator('[data-start]');
+ const loadStatus = page.locator('[data-load-status]');
+ const started = () => page.waitForFunction(() => document.querySelector('[data-hp]').textContent === '50');
+
+ try {
+  await page.route(wallSprite, async route => {
+   await delayedResponse;
+   await route.continue();
+  });
+  await page.goto(origin + '/games/dungeoncrawler/', {waitUntil:'domcontentloaded'});
+  await start.click();
+  assert.match(await loadStatus.textContent(), /Loading game assets/);
+  releaseSprite();
+  await started();
+  assert.equal(await start.isVisible(), false);
+  await page.unroute(wallSprite);
+
+  // An induced request failure is isolated from the normal network-error scan.
+  await page.route(wallSprite, route => route.abort(), {times:1});
+  await page.reload();
+  await loadStatus.getByText('Game graphics could not load. Select Start game to retry.').waitFor();
+  await switchTo(page, 'de');
+  assert.match(await loadStatus.textContent(), /Spielgrafiken konnten nicht geladen werden/);
+  await start.click();
+  await started();
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'dungeon-canvas');
+ } finally {
+  releaseSprite();
+  await page.close();
+ }
 }
 
 async function accessibility(browser) {

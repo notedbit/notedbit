@@ -25,7 +25,15 @@ if (navToggle && nav) {
   navToggle.addEventListener("click", () => setOpen(!isOpen()));
 
   nav.addEventListener("click", (event) => {
-    if (isOpen() && event.target.closest("a")) setOpen(false);
+    const link = event.target.closest("a");
+    if (!link || !isOpen()) return;
+    setOpen(false);
+
+    // Preserve orientation when the menu that held focus becomes hidden.
+    const href = link.getAttribute("href");
+    if (href?.startsWith("#") && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+      document.getElementById(href.slice(1))?.focus({ preventScroll: true });
+    }
   });
 
   document.addEventListener("keydown", (event) => {

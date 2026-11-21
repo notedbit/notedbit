@@ -4,13 +4,17 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width,initial-scale=1" name="viewport"/>
   <title data-de="Automatisierte Videoproduktion — notedbit">Automated Video Production — notedbit</title>
-  <meta content="A local Python application that combines product information, script generation, speech synthesis, scene composition and video rendering." data-content-de="Eine lokale Python-Anwendung, die Produktinformationen, Skriptgenerierung, Sprachsynthese, Szenenaufbau und Videorendering verbindet." name="description"/>
+  <meta content="A Python prototype for turning product data into narrated vertical videos with local speech synthesis. Includes a 62.5-second sample." data-content-de="Ein Python-Prototyp erzeugt aus Produktdaten vertonte Hochformatvideos mit lokaler Sprachsynthese. Mit einem 62,5 Sekunden langen Beispiel." name="description">
   <meta content="#121615" name="theme-color"/>
   <meta content="website" property="og:type"/>
+  <meta content="notedbit" property="og:site_name">
   <meta content="Automated Video Production — notedbit" data-content-de="Automatisierte Videoproduktion — notedbit" property="og:title">
-  <meta content="A local Python application that combines product information, script generation, speech synthesis, scene composition and video rendering." data-content-de="Eine lokale Python-Anwendung, die Produktinformationen, Skriptgenerierung, Sprachsynthese, Szenenaufbau und Videorendering verbindet." property="og:description"/>
+  <meta content="A Python prototype for turning product data into narrated vertical videos with local speech synthesis. Includes a 62.5-second sample." data-content-de="Ein Python-Prototyp erzeugt aus Produktdaten vertonte Hochformatvideos mit lokaler Sprachsynthese. Mit einem 62,5 Sekunden langen Beispiel." property="og:description">
   <meta content="https://notedbit.com/projects/trendingtrove.html" property="og:url"/>
   <meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
+  <meta content="1200" property="og:image:width">
+  <meta content="630" property="og:image:height">
+  <meta content="notedbit · Loran Mustafa" property="og:image:alt">
   <link href="https://notedbit.com/projects/trendingtrove.html" rel="canonical"/>
   <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
   <link href="../style.css" rel="stylesheet"/>
@@ -32,7 +36,7 @@
   <header class="project-intro section-shell">
     <a class="project-back" href="./#video"><span data-de="Projektarchiv">Project archive</span> <span aria-hidden="true">←</span></a>
     <h1 data-de="Automatisierte Videoproduktion">Automated Video Production</h1>
-    <p class="project-lede" data-de="Ich habe eine Python-Pipeline entwickelt, die Produktdaten in vertonte Hochformatvideos mit Untertiteln umwandelt.">I built a Python pipeline that turns product data into narrated, captioned vertical videos.</p>
+    <p class="project-lede" data-de="Ich habe einen Python-Prototyp entwickelt, der Produktdaten in vertonte Hochformatvideos mit Untertiteln umwandelt.">I built a Python prototype that turns product data into narrated, captioned vertical videos.</p>
     <p class="project-meta"><span>2026</span><span data-de="Aufgezeichneter Prototyp">Recorded prototype</span><span>Python · Qwen · Kokoro · FFmpeg</span></p>
     <a class="project-link" href="#video-sample"><span data-de="Prototypvideo ansehen">Watch the prototype</span> <span aria-hidden="true">→</span></a>
   </header>
@@ -41,8 +45,9 @@
       <h2 data-de="Generiertes Prototypvideo">Generated prototype video</h2>
       <p data-de="62,5 Sekunden bei 1080 × 1920. Diese frühe Ausgabe zeigt Szenenlayouts, Vertonung und gerenderte Untertitel.">62.5 seconds at 1080 × 1920. This earlier output shows scene layouts, narration and rendered captions.</p>
       <p data-de="Kategorieauswahl und Sprachqualität werden noch überarbeitet. Ein separater Linux-Test erzeugte ein anderes Video.">Category selection and narration quality still need work. A separate Linux test produced a different clip.</p>
+      <p id="visual-summary"><strong data-de="Bildbeschreibung">Visual summary</strong>. <span data-de="Der Clip wechselt zwischen Produktfotos, Detailaufnahmen und kurzen Texteinblendungen. Eine Schlussfolie zeigt die vier vorgestellten Produkte zusammen.">The clip alternates product photos, close-ups and short text overlays. A final slide brings the four featured products together.</span></p>
     </div>
-    <video id="video-sample" controls playsinline preload="none" width="270" height="480"
+    <video id="video-sample" aria-describedby="visual-summary" controls playsinline preload="none" width="270" height="480"
         poster="../assets/trending-trove-poster.jpg" aria-label="Product video prototype" data-aria-label-de="Produktvideo-Prototyp">
         <source src="../assets/trending-trove-prototype.mp4" type="video/mp4">
       </video>
@@ -50,7 +55,7 @@
   <section class="project-section section-shell">
     <h2 data-de="Vom Skript zum Render">From script to render</h2>
     <div>
-      <p data-de="Der Python-Ablauf übergibt Produktinformationen an ein lokales Qwen-Modell, nutzt Kokoro zur Sprachsynthese und bereitet Szenen mit Zeitmarken und Untertiteln für FFmpeg auf. Eine PySide6-Oberfläche macht den Ablauf am Desktop zugänglich.">The Python workflow passes product information to a local Qwen model, uses Kokoro for speech synthesis and assembles timed scenes and captions for FFmpeg. A PySide6 desktop interface provides access to the workflow.</p>
+      <p data-de="Der Python-Ablauf übergibt Produktinformationen an ein lokales Qwen-Modell, nutzt Kokoro zur Sprachsynthese und bereitet Szenen mit Zeitmarken und Untertiteln für FFmpeg auf. Die Projektdokumentation beschreibt außerdem eine PySide6-Oberfläche.">The Python workflow passes product information to a local Qwen model, uses Kokoro for speech synthesis and assembles timed scenes and captions for FFmpeg. The project documentation also describes a PySide6 desktop interface.</p>
     </div>
   </section>
   <section class="project-section section-shell">
