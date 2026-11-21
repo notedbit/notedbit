@@ -332,6 +332,9 @@
     grid-template-columns: 1fr;
   }
 
+}
+
+@media (max-width: 760px), (pointer: coarse) {
   .mobile-controls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -439,10 +442,11 @@ body.game-fullscreen-active .game-frame {
   inset: 0;
   z-index: 99999;
   width: 100vw;
+  height: 100vh;
   height: 100dvh;
   max-width: none;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
   border: 0;
   border-radius: 0;
   background: #090b0e;
@@ -467,15 +471,33 @@ body.game-fullscreen-active .canvas-wrap {
 }
 
 body.game-fullscreen-active #dungeon-canvas {
-  width: min(calc(100vw - 24px), calc(100dvh - 78px));
-  height: min(calc(100vw - 24px), calc(100dvh - 78px));
+  width: 100%;
+  height: 100%;
   max-width: none;
   max-height: none;
   margin: 0;
+  object-fit: contain;
 }
 
-body.game-fullscreen-active .mobile-controls {
-  display: none;
+body.game-fullscreen-active .game-overlay {
+  align-items: safe center;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  body.game-fullscreen-active .mobile-controls {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: 6px 12px;
+  }
+
+  body.game-fullscreen-active .control-button {
+    grid-column: auto;
+    min-height: 44px;
+  }
 }
 
 /* Also style native fullscreen directly as an extra safety net. */
@@ -514,11 +536,6 @@ body.game-fullscreen-active .mobile-controls {
   body.game-fullscreen-active .canvas-wrap {
     max-height: none;
     min-height: 0;
-  }
-
-  body.game-fullscreen-active #dungeon-canvas {
-    width: min(calc(100vw - 24px), calc(100dvh - 78px));
-    height: min(calc(100vw - 24px), calc(100dvh - 78px));
   }
 }
 

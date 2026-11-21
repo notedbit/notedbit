@@ -6,6 +6,7 @@ const search = document.getElementById('project-search');
 const filters = [...archiveTools.querySelectorAll('[data-filter]')];
 const views = [...archiveTools.querySelectorAll('[data-archive-view]')];
 const feedback = archiveTools.querySelector('[data-result-count]');
+const reset = archiveTools.querySelector('[data-archive-reset]');
 const groups = [...archive.querySelectorAll('.archive-group')];
 const records = [...archive.querySelectorAll('.archive-record')];
 const flatList = document.createElement('div');
@@ -56,6 +57,7 @@ function updateArchive() {
   flatList.hidden = !all;
 
   const query = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+  reset.hidden = all && !search.value;
   const linkedProject = currentHash();
   let count = 0;
   for (const {record, searchText} of recordData) {
@@ -170,6 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
   openHash();
   archiveTools.hidden = false;
 }, {once: true});
+reset.addEventListener('click', () => {
+  search.value = '';
+  category = 'all';
+  setProjectHash();
+  search.focus();
+  updateArchive();
+});
 search.addEventListener('input', updateArchive);
 document.addEventListener('notedbit:languagechange', updateArchive);
 window.addEventListener('hashchange', openHash);
