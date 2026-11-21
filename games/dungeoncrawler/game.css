@@ -233,6 +233,16 @@
   font-size: .7rem;
 }
 
+.game-load-status {
+  margin: 0;
+}
+
+.game-load-status:not(:empty) {
+  margin-block-start: 8px;
+  color: #d4e1ef;
+  font-size: .85rem;
+}
+
 .game-start {
   width: 100%;
 }

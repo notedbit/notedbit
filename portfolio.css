@@ -426,6 +426,8 @@
 
   html:not(.js) :is(.portfolio-home, .archive-ledger, .case-study) .site-nav {
     position: static;
+    max-height: none;
+    overflow: visible;
     order: 1;
     flex-basis: 100%;
     transform: none;

@@ -4,13 +4,17 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width,initial-scale=1" name="viewport"/>
   <title data-de="Automatisierte Horrorstory- und Videoproduktion — notedbit">Automated Horror Story &amp; Video Production — notedbit</title>
-  <meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." name="description"/>
+  <meta content="A local Python prototype for narrated horror videos with generated scenes. Includes a 42-second excerpt and a summary of the tested scope." data-content-de="Ein lokaler Python-Prototyp für vertonte Horrorvideos mit generierten Szenen. Mit einem 42-Sekunden-Ausschnitt und den Ergebnissen bisheriger Tests." name="description">
   <meta content="#121615" name="theme-color"/>
   <meta content="website" property="og:type"/>
+  <meta content="notedbit" property="og:site_name">
   <meta content="Automated Horror Story &amp; Video Production — notedbit" data-content-de="Automatisierte Horrorstory- und Videoproduktion — notedbit" property="og:title">
-  <meta content="An experimental pipeline for generating fictional horror stories and assembling narrated short-form videos." data-content-de="Eine experimentelle Pipeline zur Erstellung fiktionaler Horrorgeschichten und zur Zusammenstellung vertonter Videos." property="og:description"/>
+  <meta content="A local Python prototype for narrated horror videos with generated scenes. Includes a 42-second excerpt and a summary of the tested scope." data-content-de="Ein lokaler Python-Prototyp für vertonte Horrorvideos mit generierten Szenen. Mit einem 42-Sekunden-Ausschnitt und den Ergebnissen bisheriger Tests." property="og:description">
   <meta content="https://notedbit.com/projects/horror-video-automation.html" property="og:url"/>
   <meta content="https://notedbit.com/assets/og-preview.png" property="og:image"/>
+  <meta content="1200" property="og:image:width">
+  <meta content="630" property="og:image:height">
+  <meta content="notedbit · Loran Mustafa" property="og:image:alt">
   <link href="https://notedbit.com/projects/horror-video-automation.html" rel="canonical"/>
   <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
   <link href="../style.css" rel="stylesheet"/>
@@ -33,15 +37,16 @@
     <a class="project-back" href="./#horror"><span data-de="Projektarchiv">Project archive</span> <span aria-hidden="true">←</span></a>
     <h1 data-de="Automatisierte Horrorstory- und Videoproduktion">Automated Horror Story &amp; Video Production</h1>
     <p class="project-lede" data-de="Ich habe einen separaten lokalen Python-Ablauf entwickelt, der fiktive Kurzgeschichten in vertonte Videos mit generierten Bildern und Untertiteln umwandelt.">I built a separate local Python workflow to turn short fictional stories into narrated videos with synthesized imagery and subtitles.</p>
-    <p class="project-meta"><span>2026</span><span data-de="Prototyp mit generierter Ausgabe">Prototype with generated output</span><span>Python · Qwen3 · Kokoro · FFmpeg</span></p>
+    <p class="project-meta"><span>2026</span><span data-de="Prototyp mit generierter Ausgabe">Prototype with generated output</span><span>Python · FFmpeg</span></p>
     <a class="project-link" href="#horror-sample"><span data-de="Ausschnitt ansehen">Watch the excerpt</span> <span aria-hidden="true">→</span></a>
   </header>
   <section class="project-evidence section-shell" id="horror-sample">
     <div>
       <h2 data-de="Generierter Ausschnitt">Generated excerpt</h2>
       <p data-de="42 Sekunden aus einer 2:53 Minuten langen Ausgabe vom 24. September 2026.">42 seconds from a 2:53 output generated on 24 September 2026.</p>
+      <p id="visual-summary"><strong data-de="Bildbeschreibung">Visual summary</strong>. <span data-de="Der Ausschnitt zeigt einen nebligen Wald und einen leeren Flur. In den eingeblendeten Untertiteln leuchten einzelne Wörter auf.">The excerpt shows a foggy forest and an empty corridor. Individual words light up in the subtitles displayed on screen.</span></p>
     </div>
-    <video controls playsinline preload="none" width="270" height="480"
+    <video aria-describedby="visual-summary" controls playsinline preload="none" width="270" height="480"
         poster="../assets/horror-generated-frame.jpg" aria-label="Excerpt from generated horror short" data-aria-label-de="Ausschnitt aus generiertem Horror-Kurzvideo">
         <source src="../assets/horror-generated-excerpt.mp4" type="video/mp4">
       </video>
@@ -49,7 +54,7 @@
   <section class="project-section section-shell">
     <h2 data-de="Vertonung und Untertitel synchronisieren">Aligning narration and subtitles</h2>
     <div>
-      <p data-de="Die archivierten Python-Module nutzen ein lokales Qwen3-Modell für die Geschichte, Kokoro für die Vertonung und faster-whisper für Wortzeitmarken. Diffusers erzeugt Bilder. FFmpeg setzt animierte Szenen, Ton und ASS-Untertitel zusammen.">The archived Python modules use a local Qwen3 model for the story, Kokoro for narration and faster-whisper for word timing. Diffusers creates images, and FFmpeg assembles animated scenes, audio and ASS subtitles.</p>
+      <p data-de="Die archivierte Python-Pipeline trennt Textgenerierung, Sprachsynthese und Bilderzeugung. Wortzeitmarken steuern die Untertitel. FFmpeg verbindet Szenen, Vertonung und Untertitel zum Video.">The archived Python workflow separates story generation, speech synthesis and image generation. Word timings drive the subtitles, and FFmpeg combines the scenes, narration and subtitles into a clip.</p>
     </div>
   </section>
   <section class="project-section section-shell">

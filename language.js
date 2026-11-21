@@ -65,7 +65,7 @@
     "Teleport ready. Choose a direction.": "Teleportation bereit. Wähle eine Richtung.",
     "Teleport cancelled.": "Teleportation abgebrochen.",
     "Loading game assets…": "Spielgrafiken werden geladen …",
-    "The game assets could not be loaded.": "Die Spielgrafiken konnten nicht geladen werden.",
+    "Game graphics could not load. Select Start game to retry.": "Die Spielgrafiken konnten nicht geladen werden. Wähle „Spiel starten“, um es erneut zu versuchen.",
     "Play Dungeon Crawler — notedbit": "Dungeon Crawler spielen – notedbit",
     "Touch controls": "Touch-Steuerung",
     "Dungeon Crawler game area": "Dungeon-Crawler-Spielfeld",

@@ -20,6 +20,7 @@
   const endTitle = document.querySelector("[data-end-title]");
   const endCopy = document.querySelector("[data-end-copy]");
   const startButton = document.querySelector("[data-start]");
+  const loadStatus = document.querySelector("[data-load-status]");
   const resetButton = document.querySelector("[data-reset]");
   const fullscreenButton = document.querySelector("[data-fullscreen]");
   const gameFrame = document.querySelector(".game-frame");
@@ -46,6 +47,8 @@
   let selectedClass = "fighter";
   let state = null;
   let assetsReady = false;
+  let loadingSprites = false;
+  let startRequested = false;
 
   function randInt(min, maxInclusive) {
     return Math.floor(Math.random() * (maxInclusive - min + 1)) + min;
@@ -463,11 +466,29 @@
     setMessage(state.teleportMode ? "Teleport ready. Choose a direction." : "Teleport cancelled.");
   }
 
+  function prepareSprites() {
+    if (loadingSprites || assetsReady) return;
+    loadingSprites = true;
+
+    loadSprites().then(() => {
+      loadingSprites = false;
+      loadStatus.textContent = "";
+      if (startRequested) startGame();
+    }, () => {
+      loadingSprites = false;
+      startRequested = false;
+      loadStatus.textContent = "Game graphics could not load. Select Start game to retry.";
+    });
+  }
+
   function startGame() {
     if (!assetsReady) {
-      setMessage("Loading game assets…");
+      startRequested = true;
+      loadStatus.textContent = "Loading game assets…";
+      prepareSprites();
       return;
     }
+    startRequested = false;
 
     const player = createCharacter(selectedClass, START.x, START.y);
     state = {
@@ -516,6 +537,8 @@
   }
 
   function showStartScreen() {
+    startRequested = false;
+    loadStatus.textContent = "";
     state = null;
     updateHud();
     setMessage("Select a character to begin.");
@@ -653,7 +676,5 @@
     }
   });
 
-  loadSprites().catch(() => {
-    setMessage("The game assets could not be loaded.");
-  });
+  prepareSprites();
 })();
