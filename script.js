@@ -35,7 +35,13 @@ if (navToggle && nav) {
     }
   });
 
-  window.matchMedia("(max-width: 760px)").addEventListener("change", (event) => {
+  const mobileQuery = window.matchMedia("(max-width: 760px)");
+  const handleViewportChange = (event) => {
     if (!event.matches && isOpen()) setOpen(false);
-  });
+  };
+  if (typeof mobileQuery.addEventListener === "function") {
+    mobileQuery.addEventListener("change", handleViewportChange);
+  } else if (typeof mobileQuery.addListener === "function") {
+    mobileQuery.addListener(handleViewportChange);
+  }
 }
